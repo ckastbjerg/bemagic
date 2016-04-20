@@ -45,7 +45,7 @@ module.exports.getTag = function(config, atRules, componentName) {
 };
 
 // Returns a heading including information about themeing for a component variation
-module.exports.getPageHeadingMarkup = function($, config, namespace, themes, cn) {
+module.exports.getPageHeadingMarkup = function($, config, themeClass, backgroundClass, themes, cn) {
     const $heading = $(`<div>`)
         .addClass(`bemagic-page__heading bemagic-page-heading`)
         .text(`${cn}`);
@@ -65,15 +65,15 @@ module.exports.getPageHeadingMarkup = function($, config, namespace, themes, cn)
     }
 
     themes.forEach(function(theme) {
-        let themeClass = namespace + config.themeClass;
+        let themeName = theme;
         if (theme !== config.themeClass) {
-            themeClass += `--${theme}`;
+            themeName = `${themeClass}--${theme}`;
         }
 
         const $element = $(`<div>`)
-            .addClass(`bemagic-theme-button bemagic-theme-button--small ${themeClass} js-page-theme`)
+            .addClass(`bemagic-theme-button bemagic-theme-button--small ${themeName} ${backgroundClass} js-page-theme`)
             .attr('data-section-ref', cn)
-            .attr('data-theme', themeClass);
+            .attr('data-theme', themeName);
 
         $heading.append($element);
     });
@@ -81,7 +81,7 @@ module.exports.getPageHeadingMarkup = function($, config, namespace, themes, cn)
     return $heading;
 };
 
-module.exports.getPageSectionMarkup = function($, config, part, tag, dataClass, classes) {
+module.exports.getPageSectionMarkup = function($, config, themeClass, backgroundClass, part, tag, dataClass, classes) {
     const pseudoStates = Object.keys(part.pseudoStates);
     const states = Object.keys(part.states);
     const mixedStates = Object.keys(part.mixedStates);
@@ -90,7 +90,7 @@ module.exports.getPageSectionMarkup = function($, config, part, tag, dataClass, 
     const text = module.exports.getText(config, part.atRules);
     const value = `value="${text}"`;
 
-    let section = `<div class="bemagic-page__section js-page-section" data-class="${dataClass}">`;
+    let section = `<div class="bemagic-page__section js-page-section ${backgroundClass}" data-class="${dataClass}">`;
 
     let markup = `
         <${tag} ${attributes} ${isInput ? value : ''} class="${classes}">

@@ -58,7 +58,6 @@ function getThemesInfo(config, themes) {
 
     let markdown = `Elements using this class will change appearance when used inside [theme](${CONVENTIONS_FILE}#theming) `;
     markdown += getListString(themes, 'or');
-    markdown += ` See the [\`${config.namespace}-${config.themeClass}\`](../${config.themeClass}) component for details.`;
 
     return markdown + `\n`;
 }
@@ -93,7 +92,7 @@ function getThemingExample(config, ns, c) {
     let tag = config.tags[c] || 'div';
     let markdown = '';
 
-    markdown += `The \`${ns}-${c}\` supports [\`theming\`](${CONVENTIONS_FILE}) and can change its appearance when wrapped in the [\`${ns}-${config.themeClass}\`](../${config.themeClass}) component. Note however, that themes may apply only for parts of the component.\n`;
+    markdown += `The \`${ns}-${c}\` supports [\`theming\`](${CONVENTIONS_FILE}) and can change its appearance when wrapped in the \`${ns}-${config.themeClass}\` class. Note however, that themes may apply only for parts of the component.\n`;
     markdown += getThemingMarkup(config, ns, c, tag);
     markdown += '\n';
 

@@ -9,11 +9,12 @@ const utils = require('./utils');
 module.exports = function(config, css, data) {
     const components = data.components || {};
     const themesGlobal = data.themes || {};
+    const namespace = config.namespace ? `${config.namespace}-` : '';
+    const themeClass = config.themeClass ? `${namespace}${config.themeClass}` : '';
+    const backgroundClass = config.backgroundClass ? `${namespace}${config.backgroundClass}` : '';
 
     const componentsPath = fs.realpathSync(config.componentsFolder);
-    const namespace = config.namespace ? `${config.namespace}-` : '';
 
-    // console.log(util.inspect(components, {showHidden: false, depth: null}));
     const $ = cheerio.load(`
         <div class="bemagic-app js-bemagic-app-template">
             <style>${css}</style>
@@ -24,7 +25,7 @@ module.exports = function(config, css, data) {
             <div class="bemagic-app__sidebar">
                 <div class="bemagic-menu js-menu"></div>
             </div>
-            <div class="bemagic-app__pages js-pages ${namespace}${config.themeClass}"></div>
+            <div class="bemagic-app__pages js-pages ${themeClass} ${backgroundClass}"></div>
         </div>
     `);
 
@@ -53,16 +54,15 @@ module.exports = function(config, css, data) {
     //-- Add theme-toggle header items
     //----------------------------------------------------------------------
 
-    const cn = namespace + config.themeClass;
     const $theme = $(`<div>`)
-        .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle is-active ${cn}`)
-        .attr('data-class', cn);
+        .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle is-active ${themeClass} ${backgroundClass}`)
+        .attr('data-class', themeClass);
     $('.js-header-themes').append($theme);
 
     for (const theme of themesGlobal) {
         const $theme = $('<div>')
-            .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle ${cn}--${theme}`)
-            .attr('data-class', `${cn}--${theme}`);
+            .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle ${themeClass}--${theme} ${backgroundClass}`)
+            .attr('data-class', `${themeClass}--${theme}`);
         $('.js-header-themes').append($theme);
     }
 
@@ -121,8 +121,8 @@ module.exports = function(config, css, data) {
         //-- Component (block)
         //----------------------------------------------------------------------
 
-        const $heading = utils.getPageHeadingMarkup($, config, namespace, themes, cn);
-        const $section = utils.getPageSectionMarkup($, config, component, tag, cn, cn);
+        const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, cn);
+        const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, component, tag, cn, cn);
         $page.append($heading);
         $page.append($section);
 
@@ -134,8 +134,8 @@ module.exports = function(config, css, data) {
         modifiers.forEach(function(m) {
             const modifier = component.modifiers[m];
             const themes = Object.keys(modifier.themes);
-            const $heading = utils.getPageHeadingMarkup($, config, namespace, themes, `${cn}--${m}`);
-            const $section = utils.getPageSectionMarkup($, config, modifier, tag, `${cn}--${m}`, `${cn} ${cn}--${m}`);
+            const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, `${cn}--${m}`);
+            const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, modifier, tag, `${cn}--${m}`, `${cn} ${cn}--${m}`);
             $page.append($heading);
             $page.append($section);
         });
@@ -150,8 +150,8 @@ module.exports = function(config, css, data) {
             const modifiers = Object.keys(descendant.modifiers);
             const themes = Object.keys(descendant.themes);
             const tag = utils.getTag(config, descendant.atRules, d);
-            const $heading = utils.getPageHeadingMarkup($, config, namespace, themes, `${cn}__${d}`);
-            const $section = utils.getPageSectionMarkup($, config, descendant, tag, `${cn}__${d}`, `${cn}__${d}`);
+            const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, `${cn}__${d}`);
+            const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, descendant, tag, `${cn}__${d}`, `${cn}__${d}`);
             $page.append($heading);
             $page.append($section);
 
@@ -162,8 +162,8 @@ module.exports = function(config, css, data) {
             modifiers.forEach(function(m) {
                 const modifier = descendant.modifiers[m];
                 const themes = Object.keys(modifier.themes);
-                const $heading = utils.getPageHeadingMarkup($, config, namespace, themes, `${cn}__${d}--${m}`);
-                const $section = utils.getPageSectionMarkup($, config, modifier, tag, `${cn}__${d}--${m}`, `${cn}__${d} ${cn}__${d}--${m}`);
+                const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, `${cn}__${d}--${m}`);
+                const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, modifier, tag, `${cn}__${d}--${m}`, `${cn}__${d} ${cn}__${d}--${m}`);
                 $page.append($heading);
                 $page.append($section);
             });

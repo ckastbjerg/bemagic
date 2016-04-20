@@ -20,7 +20,15 @@ module.exports.getDescendantName = function(rule) {
     return rule.match(regExp) ? rule.match(regExp)[1] : null;
 };
 
-module.exports.getModifierName = function(rule) {
+module.exports.getModifierName = function(config, rule) {
+    if (!rule) return;
+    // E.g. .prefix-background.prefix-theme--inverse shouldn't be considered part of
+    // prefix-background component
+    const ChainedThemeClass = rule.split('.')[2] || '';
+    if (ChainedThemeClass.indexOf(config.themeClass) !== -1) {
+        return null;
+    }
+
     const regExp = new RegExp(WORD + '--(' + WORD + ')');
     return rule.match(regExp) ? rule.match(regExp)[1] : null;
 };

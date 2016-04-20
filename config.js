@@ -20,7 +20,8 @@ module.exports = {
     pattern: 'bem',
     strict: true,
     text: 'The quick brown fox jumps over the lazy dog',
-    themeClass: undefined,
+    themeClass: 'theme',
+    backgroundClass: 'background',
     tags: {
         button: 'button',
         input: 'input',
