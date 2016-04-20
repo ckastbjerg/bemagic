@@ -1,0 +1,77 @@
+<head>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="js-bemagic-app"></div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var themeClass;
+
+        function setActiveMenuLink($link) {
+            $('.js-menu-link.is-active').removeClass('is-active');
+            $('.js-page.is-active').removeClass('is-active');
+            $('[data-page="' + $link.attr('data-page') + '"]').addClass('is-active');
+        }
+
+        function setActiveTheme($link) {
+            $('.js-background-toggle.is-active').removeClass('is-active');
+            $link.addClass('is-active');
+            $('.js-pages').addClass($link.attr('data-class'));
+        }
+
+        function removeThemeClass($element) {
+            var themeRegExp = new RegExp('(^|\\s)' + themeClass + '\\S+', 'g');
+            $element.removeClass (function (index, css) {
+                return (css.match(themeRegExp) || []).join(' ');
+            });
+        }
+
+        $('body').on('click', '.js-menu-link', function(e) {
+            setActiveMenuLink($(this));
+        });
+
+        $('body').on('click', '.js-background-toggle', function(e) {
+            $('.js-background-toggle.is-active').removeClass('is-active');
+            $(this).addClass('is-active');
+            removeThemeClass($('.js-pages'));
+            removeThemeClass($('.js-page-section'));
+            $('.js-pages').addClass($(this).attr('data-class'));
+            $('.js-page-theme').removeClass('is-active');
+        });
+
+        $('body').on('click', '.js-stylesheet-toggle', function() {
+            var ref = $(this).attr('data-stylesheet-ref');
+            $(this).toggleClass('is-active');
+            $('[data-stylesheet="' + ref + '"]').prop('disabled', function(i, v) { return !v; });
+        });
+
+        $('body').on('click', '.js-toggle-global-typography', function() {
+            $(this).toggleClass('is-active');
+            $('.js-pages').toggleClass('ixu-global-typography');
+        });
+
+        $('body').on('click', '.js-page-theme', function() {
+            $section = $('.js-page-section[data-class="' + $(this).attr('data-section-ref') + '"]');
+            $(this).addClass('is-active');
+            $(this).siblings().removeClass('is-active');
+            removeThemeClass($section);
+            $section.addClass($(this).attr('data-theme'));
+        });
+
+        io().on('data', function (data) {
+            // store current state
+            var index = $('.js-menu-link.is-active').index();
+            var theme = $('.js-background-toggle.is-active').index();
+            var pagesScrollTop = $('.js-pages').scrollTop();
+            // append new data
+            $('.js-bemagic-app').html(data);
+            // re-apply stored state
+            setActiveMenuLink($('.js-menu-link').eq(index));
+            setActiveTheme($('.js-background-toggle').eq(theme !== -1 ? theme : 0));
+            $('.js-pages').scrollTop(pagesScrollTop);
+            // extract the projects themes class name (if any)
+            themeClass = $('.js-bemagic-app-template').attr('data-theme-class');
+        });
+    </script>
+</body>

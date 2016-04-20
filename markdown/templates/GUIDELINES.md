@@ -1,0 +1,151 @@
+## {{NAME}} naming conventions
+
+{{NAME}} follows [BEM naming conventions](http://getbem.com/naming/).
+It relies on _structured class names_ and _meaningful hyphens and underscores_
+(i.e., not using hyphens merely to separate words). This helps to work around
+the current limits of applying CSS to the DOM (i.e., the lack of style
+encapsulation), and to better communicate the relationships between classes.
+
+
+**Table of contents**
+* [Naming syntax](#naming-syntax)
+* [The `{{NAMESPACE}}` namespace](#namespace)
+* [Components](#components)
+* [Modifiers](#modifiers)
+* [Descendants](#descendants)
+* [States](#states)
+* [Theming](#theming)
+
+<a name="naming-syntax"></a>
+### Naming syntax
+
+All components in the {{NAME}} design system must use this syntax.
+
+Syntax: `[<namespace>-]<component-name>[__descendant-name][--modifier-name]`
+
+This has several benefits when reading and writing HTML and CSS:
+
+* It helps to distinguish between the classes for the root of the component,
+  descendent elements, and modifications.
+* It keeps the specificity of selectors low.
+* It helps to decouple presentation semantics from document semantics.
+
+<a name="namespace"></a>
+### The `{{NAMESPACE}}` namespace
+
+All components are prefixed with the `{{NAMESPACE}}-` namespace. This helps us
+avoid potential collisions when {{NAME}} is used in conjunction with other CSS
+projects or libraries. It also improves _grepability_ for the components.
+
+```css
+.{{NAMESPACE}}-button { /* … */ }
+.{{NAMESPACE}}-tabs { /* … */ }
+```
+
+This makes it clear, when reading the HTML, which components are part of the
+{{NAME}} library.
+
+
+<a name="components"></a>
+### Components
+
+A component name must be written in lower case and separated by hyphens.
+
+```css
+.{{NAMESPACE}}-my-component { /* … */ }
+```
+
+```html
+<div class="{{NAMESPACE}}-my-component">…</div>
+```
+
+<a name="modifiers"></a>
+### Modifiers
+
+A component modifier is a class that modifies the presentation of the base
+component in some form (e.g., for a certain configuration of the component).
+Modifier names must be separated from the component name by two hyphens. The
+class should be included in the HTML _in addition_ to the base component class.
+
+```css
+/* Default button */
+.{{NAMESPACE}}-button { /* … */ }
+
+/* Button variant */
+.{{NAMESPACE}}-button--positive { /* … */ }
+```
+
+```html
+<button class="{{NAMESPACE}}-button {{NAMESPACE}}-button--positive">…</button>
+```
+
+<a name="descendants"></a>
+### Descendants
+
+A component descendent is a class that is attached to a descendent node of a
+component. It's responsible for applying presentation directly to the
+descendent on behalf of a particular component. Descendent names must be
+separated from the component name by two underscores.
+
+```html
+<article class="{{NAMESPACE}}-menu">
+  <div class="{{NAMESPACE}}-menu__item">
+    <div class="{{NAMESPACE}}-menu__link">…</div>
+    …
+  </div>
+</article>
+```
+
+Descendants can themeselves have modifier following the same conventions as the
+[component modifiers](#modifiers). Note however, that
+**descendant can not themselves have descendant**. If this seems necesarry, you
+might want to consider creating a new component.
+
+
+<a name="states"></a>
+### States
+
+Use `is-some-state-name` to reflect changes to a component's state. This is
+actually a [SMACSS](https://smacss.com/book/type-state) concept, and not a BEM
+convention. States differ from `modifiers`, in that they indicate some kind of runtime
+condition and might be affected by stuff like user-interactions or data-fetching
+logic. Examples of this could be `is-active`, `is-loading` or `is-expanded`
+state classes. As their names suggest, these are more temporary states that are
+most commonly  added during using javascript.
+
+**Never style these classes directly**; they should always be used as an
+adjoining class. This means that the same state names can be used in multiple
+contexts, but every component must define its own styles for the state (as they
+are scoped to the component).
+
+```css
+.{{NAMESPACE}}-button { /* … */ }
+.{{NAMESPACE}}-button.is-loading { /* … */ }
+```
+
+```html
+<button class="{{NAMESPACE}}-button is-loading"></button>
+```
+
+<a name="theming"></a>
+### Theming
+
+**{{NAME}} components should never be styled from within other components**
+(also known as contextual styling). However, there are situations where it makes
+sence to have a Component modify its appearance based on the context in which it
+appears. In other words, the component knows about the theme it appears in
+whereas a theme has no idea which components it contains.
+
+```css
+.{{NAMESPACE}}-background--secondary .{{NAMESPACE}}-button { /* … */ }
+```
+
+```html
+<div class="{{NAMESPACE}}-{{THEMECLASS}} {{NAMESPACE}}-{{THEMECLASS}}--secondary">
+  <div class="{{NAMESPACE}}-button">…</div>
+</div>
+```
+
+The overarching goal here, is to keep the component as encapsulated and
+self-contained as possible while still allowing ease of use for complex theming
+scenarios.

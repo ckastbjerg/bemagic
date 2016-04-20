@@ -1,0 +1,19 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #B8E6FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6AAADE;
+    cursor: default;
+}
+
+h1 {
+    margin: 0;
+    font-weight: 100;
+}
+
+img {
+    width: 25vh;
+}

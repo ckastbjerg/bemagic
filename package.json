@@ -1,0 +1,45 @@
+{
+  "name": "bemagic",
+  "version": "0.0.0",
+  "repository": "git@github.com:ckastbjerg/bemagic.git",
+  "description": "Automagically convert stylesheets following BEM naming conventions into a development playground",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm run site-bemagic-open && npm run site-open && npm run site-bemagic",
+    "site-open": "open site/index.html",
+    "site-bemagic": "RUN_LOCAL=true exec ./bin/bemagic site/index.css",
+    "site-bemagic-open": "open http://localhost:8080",
+    "site-publish": "surge --project ./site/ --domain bemagic.surge.sh",
+    "example": "cd example && make"
+  },
+  "author": "Christian Kastbjerg",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "cheerio": "^0.19.0",
+    "chokidar": "^1.4.1",
+    "commander": "~2.1.0",
+    "deep-extend": "^0.4.1",
+    "diff": "^2.2.1",
+    "express": "^4.13.3",
+    "postcss": "^5.0.14",
+    "rework": "^1.0.1",
+    "rework-pseudo-classes": "^0.3.0",
+    "socket.io": "^1.4.3"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "git-scripts": "^0.2.1",
+    "surge": "^0.17.5",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.4.0"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "npm run site-publish"
+    }
+  },
+  "bin": {
+    "bemagic": "bin/bemagic"
+  }
+}

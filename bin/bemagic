@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+'use strict';
+
+process.title = 'bemagic';
+
+var bemagic = require('../app.js');
+var fs = require('fs');
+var packageJson = require('../package.json');
+var program = require('commander');
+
+program
+    .version(packageJson.version)
+    .usage('[options] <file>')
+    .option('-c, --config <file>', 'path to config file')
+    .parse(process.argv);
+
+var file = program.args[0];
+var config = program.config;
+
+if (!file){
+    program.help();
+    return;
+}
+
+if (!file.match('.css')) {
+    console.error("file: '%s' is not a css file", file);
+    program.help();
+    return;
+}
+
+if (!fs.existsSync(file)){
+    console.error("no such file '%s'", file);
+    return;
+}
+
+bemagic.run({
+    file: fs.realpathSync(file),
+    config: config ? fs.realpathSync(config) : null
+});

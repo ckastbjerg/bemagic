@@ -1,0 +1,135 @@
+@mixin test() {
+    color: dimgray;
+
+    .ep-background--secondary & {
+        color: black;
+    }
+
+    .ep-background--inverse & {
+        color: white;
+    }
+}
+
+/*
+@bemagic {
+    intro: A short summary of the component
+    description: Description of `block`
+    type: container
+}
+*/
+.ep-block {
+    @include test;
+
+    &:hover {
+        @include test;
+    }
+
+    /*
+    @bemagic {
+        description: NESTED COMMENTS ARE OUTPUTTED INCORRECTLY BY NODE-SASS
+    }
+    */
+    &.is-active {
+        @include test;
+
+        &:hover {
+            @include test;
+        }
+    }
+
+    .invalid-nesting & {
+        color: red;
+    }
+
+    .ep-background & {
+        color: white;
+
+        .ep-background--secondary & {
+            color: red;
+        }
+    }
+}
+
+/*
+@bemagic {
+    description: Description of `modifier` for `block`
+}
+*/
+.ep-block--modifier {
+    @include test;
+
+    &:hover {
+        @include test;
+    }
+
+    &.is-active {
+        @include test;
+
+        &:hover {
+            @include test;
+        }
+    }
+
+    .invalid-nesting & {
+        color: red;
+    }
+}
+
+/*
+@bemagic {
+    description: Description of `block`
+    required: true
+    tag: input
+}
+*/
+.ep-block__element {
+    @include test;
+
+    &:focus,
+    &:hover,
+    &:active,
+    &:disabled {
+        @include test;
+    }
+
+    &.is-active {
+        @include test;
+
+        &:focus,
+        &:hover,
+        &:active,
+        &:disabled {
+            @include test;
+        }
+    }
+
+    .invalid-nesting & {
+        color: red;
+    }
+}
+
+.ep-block__element--modifier {
+    @include test;
+
+    &:focus,
+    &:hover,
+    &:active,
+    &:disabled {
+        @include test;
+    }
+
+    &.is-active {
+        @include test;
+
+        &:focus,
+        &:hover,
+        &:active,
+        &:disabled {
+            @include test;
+        }
+    }
+
+    .invalid-nesting & {
+        color: red;
+    }
+}
