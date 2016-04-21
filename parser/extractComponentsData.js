@@ -43,6 +43,10 @@ module.exports = function(config, selector, components) {
     const themeName = utils.getThemeName(config, selector);
     const mixedStateName = stateName + pseudoStateName;
 
+    if (componentName === config.themeClass) {
+        return;
+    }
+
     let customMarkup;
     if (Object.keys(components).indexOf(componentName) === -1) {
         customMarkup = getComponentTemplateFile(config.componentsFolder, componentName);

@@ -53,13 +53,13 @@ module.exports.getPageHeadingMarkup = function($, config, themeClass, background
     if (themes.length > 0) {
         const $element = $(`<div>`)
             .addClass(`bemagic-page-heading__explain`)
-            .text('Styled for backgrounds: ');
+            .text('Styled for themes: ');
 
         $heading.append($element);
     } else {
         const $element = $(`<div>`)
             .addClass(`bemagic-page-heading__explain`)
-            .text('Has no background specific styles');
+            .text('Has no theme specific styles');
 
         $heading.append($element);
     }

@@ -27,7 +27,12 @@ module.exports = function(config, css, components) {
         }
 
         const markdown = getComponentMarkdown(config, components[componentName], template);
-        fs.writeFileSync(`${outputPath}/${componentName}/README.md`, markdown);
+        try {
+            fs.writeFileSync(`${outputPath}/${componentName}/README.md`, markdown);
+        } catch (e) {
+            console.log('Could not save README.md for', componentName);
+            console.log('Error:', e);
+        }
     });
 
     fs.writeFileSync(`${outputPath}/README.md`, componentsMarkdown);
