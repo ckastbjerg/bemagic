@@ -161,8 +161,6 @@
   width: 24px;
   height: 24px;
   border: 1px solid #aaa;
-}
-.bemagic-theme-button:nth-child(1n+2) {
   margin-left: 12px;
 }
 .bemagic-theme-button:hover {

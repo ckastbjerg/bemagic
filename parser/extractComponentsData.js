@@ -43,7 +43,7 @@ module.exports = function(config, selector, components) {
     const themeName = utils.getThemeName(config, selector);
     const mixedStateName = stateName + pseudoStateName;
 
-    if (componentName === config.themeClass) {
+    if (componentName.indexOf(config.themeClass) !== -1) {
         return;
     }
 

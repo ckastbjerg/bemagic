@@ -38,7 +38,7 @@ module.exports.getStateName = function(rule) {
 };
 
 module.exports.getThemeName = function(config, rule) {
-    const regExp = new RegExp(`${config.namespace}-${config.themeClass}--(${WORD})`);
+    const regExp = new RegExp(`${config.namespace}-${config.themeClass}-(${WORD})`);
     return rule.match(regExp) ? rule.match(regExp)[1] : null;
 };
 

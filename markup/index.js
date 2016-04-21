@@ -9,6 +9,7 @@ const utils = require('./utils');
 module.exports = function(config, css, data) {
     const components = data.components || {};
     const themesGlobal = data.themes || {};
+    const backgroundsGlobal = config.backgroundClass ? data.components[config.backgroundClass] : {};
     const namespace = config.namespace ? `${config.namespace}-` : '';
     const themeClass = config.themeClass ? `${namespace}${config.themeClass}` : '';
     const backgroundClass = config.backgroundClass ? `${namespace}${config.backgroundClass}` : '';
@@ -21,6 +22,7 @@ module.exports = function(config, css, data) {
             <div class="bemagic-app__header bemagic-header js-header">
                 <div class="bemagic-header__logo js-header-item">BEMagic (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
                 <div class="bemagic-header__item bemagic-header__themes js-header-item js-header-themes"></div>
+                <div class="bemagic-header__item bemagic-header__themes js-header-item js-header-backgrounds"></div>
             </div>
             <div class="bemagic-app__sidebar">
                 <div class="bemagic-menu js-menu"></div>
@@ -30,6 +32,7 @@ module.exports = function(config, css, data) {
     `);
 
     $('.js-bemagic-app-template').attr('data-theme-class', namespace + config.themeClass);
+    $('.js-bemagic-app-template').attr('data-background-class', namespace + config.backgroundClass);
 
     //----------------------------------------------------------------------
     //-- Add additional sylesheets and header items to toggle them
@@ -50,21 +53,45 @@ module.exports = function(config, css, data) {
         $('.js-bemagic-app-template').prepend($link);
     });
 
+
+    //----------------------------------------------------------------------
+    //-- Add toggling of background component to header (if present)
+    //----------------------------------------------------------------------
+
+    if (backgroundsGlobal && backgroundClass !== '') {
+        $('.js-header-backgrounds').append('Shades');
+
+        const $background = $(`<div>`)
+            .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle is-active ${backgroundClass}`)
+            .attr('data-class', backgroundClass);
+        $('.js-header-backgrounds').append($background);
+
+        Object.keys(backgroundsGlobal.modifiers).forEach(function(background){
+            const $background = $(`<div>`)
+                .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle ${backgroundClass} ${backgroundClass}--${background}`)
+                .attr('data-class', `${backgroundClass}--${background}`);
+            $('.js-header-backgrounds').append($background);
+        });
+    }
+
     //----------------------------------------------------------------------
     //-- Add theme-toggle header items
     //----------------------------------------------------------------------
 
+    $('.js-header-themes').append('Themes');
+
     const $theme = $(`<div>`)
-        .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle is-active ${themeClass} ${backgroundClass}`)
+        .addClass(`bemagic-header__theme bemagic-theme-button js-theme-toggle is-active`)
         .attr('data-class', themeClass);
     $('.js-header-themes').append($theme);
 
     for (const theme of themesGlobal) {
         const $theme = $('<div>')
-            .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle ${themeClass}--${theme} ${backgroundClass}`)
-            .attr('data-class', `${themeClass}--${theme}`);
+            .addClass(`bemagic-header__theme bemagic-theme-button js-theme-toggle ${themeClass}-${theme} ${backgroundClass}`)
+            .attr('data-class', `${themeClass}-${theme}`);
         $('.js-header-themes').append($theme);
     }
+
 
     Object.keys(components).forEach(function(c, index) {
         const activeClass = index === 0 ? 'is-active' : '';
@@ -107,7 +134,7 @@ module.exports = function(config, css, data) {
                 .text(`extracted from ${config.componentsFolder}/${c}/bemagic.html`);
 
             const $section = $(`<div>`)
-                .addClass(`bemagic-page__section js-page-section`)
+                .addClass(`bemagic-page__section js-page-section ${backgroundClass}`)
                 .attr('data-class', `section-${cn}-full`);
 
             $heading.append($explain);

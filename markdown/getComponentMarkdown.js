@@ -66,6 +66,8 @@ function getThemingMarkup(config, ns, c, tag) {
     let str = '';
 
     str += '```html \n';
+    str += `<${tag} class="${ns}-${c} ${ns}-${config.themeClass}">…</${tag}>\n`;
+    str += `<!-- or using nesting -->\n`;
     str += `<div class="${ns}-${config.themeClass}">\n`;
     str += `    <${tag} class="${ns}-${c}">…</${tag}>\n`;
     str += `</div>\n`;
@@ -92,7 +94,7 @@ function getThemingExample(config, ns, c) {
     let tag = config.tags[c] || 'div';
     let markdown = '';
 
-    markdown += `The \`${ns}-${c}\` supports [\`theming\`](${CONVENTIONS_FILE}) and can change its appearance when wrapped in the \`${ns}-${config.themeClass}\` class. Note however, that themes may apply only for parts of the component.\n`;
+    markdown += `The \`${ns}-${c}\` supports [\`theming\`](${CONVENTIONS_FILE}) and can change its appearance when paired with the \`${ns}-${config.themeClass}\` class. Note however, that themes may apply only for parts of the component.\n`;
     markdown += getThemingMarkup(config, ns, c, tag);
     markdown += '\n';
 

@@ -7,6 +7,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var themeClass;
+        var backgroundClass;
 
         function setActiveMenuLink($link) {
             $('.js-menu-link.is-active').removeClass('is-active');
@@ -15,6 +16,12 @@
         }
 
         function setActiveTheme($link) {
+            $('.js-theme-toggle.is-active').removeClass('is-active');
+            $link.addClass('is-active');
+            $('.js-pages').addClass($link.attr('data-class'));
+        }
+
+        function setActiveBackground($link) {
             $('.js-background-toggle.is-active').removeClass('is-active');
             $link.addClass('is-active');
             $('.js-pages').addClass($link.attr('data-class'));
@@ -27,17 +34,44 @@
             });
         }
 
+        function removeBackgroundClass($element) {
+            var backgroundRegExp = new RegExp('(^|\\s)' + backgroundClass + '\\S+', 'g');
+            $element.removeClass (function (index, css) {
+                return (css.match(backgroundRegExp) || []).join(' ');
+            });
+        }
+
         $('body').on('click', '.js-menu-link', function(e) {
             setActiveMenuLink($(this));
+        });
+
+        $('body').on('click', '.js-theme-toggle', function(e) {
+            var dataClass = $(this).attr('data-class');
+
+            $('.js-theme-toggle.is-active').removeClass('is-active');
+            $(this).addClass('is-active');
+
+            removeThemeClass($('.js-pages'));
+            removeThemeClass($('.js-page-section'));
+            $('.js-background-toggle').each(function() {
+                removeThemeClass($(this));
+            });
+
+            $('.js-pages').addClass(dataClass);
+            $('.js-background-toggle').each(function(){
+                $(this).addClass(dataClass);
+            });
+            $('.js-page-theme').removeClass('is-active');
         });
 
         $('body').on('click', '.js-background-toggle', function(e) {
             $('.js-background-toggle.is-active').removeClass('is-active');
             $(this).addClass('is-active');
-            removeThemeClass($('.js-pages'));
-            removeThemeClass($('.js-page-section'));
+            removeBackgroundClass($('.js-pages'));
+            removeBackgroundClass($('.js-page-section'));
             $('.js-pages').addClass($(this).attr('data-class'));
-            $('.js-page-theme').removeClass('is-active');
+            $('.js-page-section').addClass($(this).attr('data-class'));
+            $('.js-page-background').removeClass('is-active');
         });
 
         $('body').on('click', '.js-stylesheet-toggle', function() {
@@ -62,16 +96,19 @@
         io().on('data', function (data) {
             // store current state
             var index = $('.js-menu-link.is-active').index();
-            var theme = $('.js-background-toggle.is-active').index();
+            var theme = $('.js-theme-toggle.is-active').index();
+            var background = $('.js-background-toggle.is-active').index();
             var pagesScrollTop = $('.js-pages').scrollTop();
             // append new data
             $('.js-bemagic-app').html(data);
             // re-apply stored state
             setActiveMenuLink($('.js-menu-link').eq(index));
-            setActiveTheme($('.js-background-toggle').eq(theme !== -1 ? theme : 0));
+            setActiveTheme($('.js-theme-toggle').eq(theme !== -1 ? theme : 0));
+            setActiveBackground($('.js-background-toggle').eq(background !== -1 ? background : 0));
             $('.js-pages').scrollTop(pagesScrollTop);
             // extract the projects themes class name (if any)
             themeClass = $('.js-bemagic-app-template').attr('data-theme-class');
+            backgroundClass = $('.js-bemagic-app-template').attr('data-background-class');
         });
     </script>
 </body>

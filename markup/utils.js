@@ -67,7 +67,7 @@ module.exports.getPageHeadingMarkup = function($, config, themeClass, background
     themes.forEach(function(theme) {
         let themeName = theme;
         if (theme !== config.themeClass) {
-            themeName = `${themeClass}--${theme}`;
+            themeName = `${themeClass}-${theme}`;
         }
 
         const $element = $(`<div>`)
