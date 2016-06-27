@@ -128,10 +128,7 @@ module.exports.getStateObject = function(stateName) {
 module.exports.getThemeObject = function(config, themeName) {
     return {
         name: themeName,
-        classes: getElementClass({
-            component: `${config.namespace}-${config.themeClass}`,
-            modifier: themeName,
-        }),
+        classes: `${config.namespace}-${config.themeClass}-${themeName}`,
     };
 };
 
