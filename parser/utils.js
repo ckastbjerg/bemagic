@@ -6,8 +6,6 @@ const getElementClass = require('../utils/getElementClass');
 const getElementMarkup = require('../utils/getElementMarkup');
 const getTag = require('../utils/getTag');
 
-const getAdvancedMarkup = require('../markup/utils');
-
 module.exports.getComponentName = function(config, rule) {
     const regExp = new RegExp(WORD);
     return rule.match(regExp)

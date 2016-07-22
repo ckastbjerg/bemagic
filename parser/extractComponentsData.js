@@ -33,6 +33,9 @@ function getComponentSelector(config, selector) {
 module.exports = function(config, selector, components) {
     const className = getComponentSelector(config, selector);
     if (!className) { return; }
+    if (selector.indexOf(`${config.namespace}-${config.cascadeClass}-`) !== -1) {
+        return;
+    }
 
     let themingUsed = false;
     const componentName = utils.getComponentName(config, className);

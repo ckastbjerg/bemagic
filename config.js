@@ -13,6 +13,7 @@ module.exports = {
         placeholder: 'placeholder',
         value: 'value',
     },
+    cascadeClass: undefined,
     componentsFolder: 'test/project',
     contextualClasses: [],
     name: undefined,
