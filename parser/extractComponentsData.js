@@ -33,12 +33,13 @@ function getComponentSelector(config, selector) {
 module.exports = function(config, selector, components) {
     const className = getComponentSelector(config, selector);
     if (!className) { return; }
-    if (selector.indexOf(`${config.namespace}-${config.cascadeClass}-`) !== -1) {
+
+    const componentName = utils.getComponentName(config, className);
+    if (componentName.indexOf(config.cascadeClass) !== -1) {
         return;
     }
 
     let themingUsed = false;
-    const componentName = utils.getComponentName(config, className);
     const descendantName = utils.getDescendantName(className);
     const modifierName = utils.getModifierName(config, className);
     const stateName = utils.getStateName(className);

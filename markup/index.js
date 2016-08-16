@@ -59,7 +59,7 @@ module.exports = function(config, css, data) {
     //----------------------------------------------------------------------
 
     if (backgroundsGlobal && backgroundClass !== '') {
-        $('.js-header-backgrounds').append('Shades');
+        $('.js-header-backgrounds').append('Background');
 
         const $background = $(`<div>`)
             .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle is-active ${backgroundClass}`)
