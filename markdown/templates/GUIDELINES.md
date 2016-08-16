@@ -137,11 +137,11 @@ appears. In other words, the component knows about the theme it appears in
 whereas a theme has no idea which components it contains.
 
 ```css
-.{{NAMESPACE}}-background--secondary .{{NAMESPACE}}-button { /* … */ }
+.{{NAMESPACE}}-background--theme-inverse .{{NAMESPACE}}-button { /* … */ }
 ```
 
 ```html
-<div class="{{NAMESPACE}}-{{THEMECLASS}} {{NAMESPACE}}-{{THEMECLASS}}--secondary">
+<div class="{{NAMESPACE}}-{{THEMECLASS}}-inverse">
   <div class="{{NAMESPACE}}-button">…</div>
 </div>
 ```
