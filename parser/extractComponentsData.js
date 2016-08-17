@@ -17,13 +17,11 @@ function getComponentSelector(config, selector) {
     // Investigate use of theming or eligal nesting. Needs cleanup!
     if (classSelectors.length > 1 && utils.getComponentName(config, classSelectors[0]) === config.themeClass) {
         if (classSelectors.length > 2) {
-            console.warn('ignored theming selector', selector);
             return;
         } else {
             return classSelectors[1];
         }
     } else if (classSelectors.length > 1) {
-        console.warn('ignored selector', selector);
         return;
     }
 
