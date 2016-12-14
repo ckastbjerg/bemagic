@@ -1,0 +1,14 @@
+exports[`test returns menu markup 1`] = `
+"
+    <div class=\"bemagic-menu js-menu\">
+        
+                <div
+                    class=\"bemagic-menu__link js-menu-link is-active\"
+                    data-page=\"components\"
+                >
+                    components
+                </div>
+            
+    </div>
+"
+`;

@@ -1,0 +1,29 @@
+exports[`test it works 1`] = `
+"
+        
+        <a name=modifier></a>
+        #### Modifier
+    ;
+        
+            The block component makes use of
+            [\`modifiers\`](../CONVENTIONS.md#modifiers) to alter its appearance
+        .
+
+        \`\`\`html
+        <div class=\"block block--modifier\">…</div>
+        \`\`\`
+
+        #####All component \`modifier\`
+
+        
+        | Name | Description |
+        |:-----|:-----|
+
+        
+                | **\`modifier\`**
+                | N/A |
+            
+    
+        <sub>See the [Component Overview](#component-overview) for more details</sub>
+    "
+`;

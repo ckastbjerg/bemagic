@@ -1,19 +1,18 @@
 'use strict';
 
-const chalk = require('chalk');
-
-module.exports = function(opts) {
-    if (!opts) {
-        throw new Error(chalk.yellow('No `opts` supplied: ', opts));
+module.exports = function({
+    blockName = null,
+    elementName = null,
+    modifierName = null,
+    stateName = null,
+}) {
+    if (!blockName) {
+        throw new Error('Missing required argument: blockName');
     }
 
-    if (!opts.component) {
-        throw new Error(chalk.yellow('Required option `component` not supplied in `opts`: ', opts));
-    }
+    const block = elementName ? `${blockName}__${elementName}` : blockName;
+    const modifier = modifierName ? ` ${block}--${modifierName}` : '';
+    const state = stateName ? ` ${stateName}` : '';
 
-    const base = opts.element ? `${opts.component}__${opts.element}` : opts.component;
-    const variation = opts.modifier ? ` ${base}--${opts.modifier}` : '';
-    const state = opts.state ? ` ${opts.state}` : '';
-
-    return `${base}${variation}${state}`;
+    return `${block}${modifier}${state}`;
 };

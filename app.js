@@ -12,7 +12,7 @@ const socketIo = require('socket.io');
 const parser = require('./parser/index');
 const markdowner = require('./markdown/index');
 const markupper = require('./markup/index');
-const lintComponents = require('./linter/lintComponents');
+const lintComponents = require('./linter');
 const defaultConfig = require('./config.js');
 
 const app = express();
@@ -27,7 +27,7 @@ app.get(['/*'], function(req, res) {
     res.sendFile(__dirname + req.originalUrl);
 });
 
-function getCss(filePath) {
+function getReworkedCss(filePath) {
     var css = fs.readFileSync(filePath, 'utf-8');
 
     var reworkedCss = rework(css).use(pseudoclasses({
@@ -47,22 +47,24 @@ module.exports.run = function(options) {
 
     const userConfig = options.config ? require(options.config) : {};
     const config = Object.assign(defaultConfig, userConfig);
-    const componentsPath = fs.realpathSync(config.componentsFolder);
+    global.config = config;
+
+    const componentsPath = config.componentsFolder;
     const watcher = chokidar.watch([`${componentsPath}/**/*.html`, options.file], {persistent: true});
 
     io.on('connection', function (socket) {
         function build() {
-            const css = getCss(options.file);
+            const css = getReworkedCss(options.file);
 
-            parser(config, css).then(function(data) {
+            parser(css).then(function({ components, themes }) {
                 if (config.strict) {
-                    lintComponents(data.components);
+                    lintComponents(components);
                 }
 
-                if (config.componentsFolder) {
-                    markdowner(config, css, data.components);
-                }
-                const markup = markupper(config, css, data);
+                // if (config.componentsFolder) {
+                //     markdowner(css, data.components);
+                // }
+                const markup = markupper({ css, components, themes });
                 socket.emit('data', markup);
             });
         }
@@ -79,7 +81,7 @@ module.exports.run = function(options) {
     console.log('      //\\  | \\   /\\\\         |   )|___)| | )|   )|   )| |               ');
     console.log('     (/ /\\_#oo#_/\\ \\)        |__/ |__  |  / |__/||__/ | |__              ');
     console.log('      \\/\\  ####  /\\/                             __/                     ');
-    console.log("           '##'                                                             ");
+    console.log('           "##"                                                             ');
     console.log('-------------------------------------------------------------------------------------');
     console.log(`     (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ Watch the magic happen at ${chalk.green('http://localhost:1234')}  `);
     console.log('-------------------------------------------------------------------------------------');

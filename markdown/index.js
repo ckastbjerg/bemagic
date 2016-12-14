@@ -6,7 +6,8 @@ const getComponentsMarkdown = require('./getComponentsMarkdown');
 const getComponentMarkdown = require('./getComponentMarkdown');
 const getConventionsMarkdown = require('./getConventionsMarkdown');
 
-module.exports = function(config, css, components) {
+module.exports = function(css, components) {
+    const config = global.config;
     components = components || {};
 
     if (!config.componentsFolder) {
@@ -14,27 +15,27 @@ module.exports = function(config, css, components) {
         return;
     }
 
-    const outputPath = fs.realpathSync(config.componentsFolder);
-    const componentsMarkdown = getComponentsMarkdown(config, components);
-    const conventionsMarkdown = getConventionsMarkdown(config, components);
+    const componentsFolder = fs.realpathSync(config.componentsFolder);
+    const componentsMarkdown = getComponentsMarkdown(components);
+    const conventionsMarkdown = getConventionsMarkdown(components);
 
     Object.keys(components).forEach(function(componentName) {
         let template;
         try {
-            template = fs.readFileSync(`${outputPath}/${componentName}/bemagic.html`, 'utf-8');
+            template = fs.readFileSync(`${componentsFolder}/${componentName}/bemagic.html`, 'utf-8');
         } catch (e) {
             // console.log('Error:', e);
         }
 
-        const markdown = getComponentMarkdown(config, components[componentName], template);
+        const markdown = getComponentMarkdown(components[componentName], template);
         try {
-            fs.writeFileSync(`${outputPath}/${componentName}/README.md`, markdown);
+            fs.writeFileSync(`${componentsFolder}/${componentName}/README.md`, markdown);
         } catch (e) {
             console.log('Could not save README.md for', componentName);
             console.log('Error:', e);
         }
     });
 
-    fs.writeFileSync(`${outputPath}/README.md`, componentsMarkdown);
-    fs.writeFileSync(`${outputPath}/CONVENTIONS.md`, conventionsMarkdown);
+    fs.writeFileSync(`${componentsFolder}/README.md`, componentsMarkdown);
+    fs.writeFileSync(`${componentsFolder}/CONVENTIONS.md`, conventionsMarkdown);
 };

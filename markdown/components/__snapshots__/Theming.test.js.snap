@@ -1,0 +1,20 @@
+exports[`test it works 1`] = `
+"
+        
+        <a name=Theming></a>
+        #### Theming
+    
+        The \`block\` supports [\`theming\`](../CONVENTIONS.md) and can change its
+        appearance when paired with the \`prefix-theme\` class.
+        Note however, that themes may apply only for parts of the component.
+
+        \`\`\`html
+        <div class=\"block prefix-theme\">…</div>
+        <!-- or using nesting -->
+        <div class=\"prefix-theme\">
+            <div class=\"block\">…</div>
+        </div>
+        \`\`\`
+        <sub>See the [Component Overview](#component-overview) for more details.</sub>
+    "
+`;

@@ -1,0 +1,21 @@
+exports[`test returns a string of attributes from an object 1`] = `
+"
+        <div class=\"bemagic-page__heading bemagic-page-heading\">
+            Composed example
+            <div class=\"bemagic-page-heading__explain\">
+                extracted from /Users/ck/code/issuu/bemagic/examples/src/components/block/bemagic.html
+            </div>
+        </div>
+        <div
+            class=\"bemagic-page__section js-page-section \"
+            data-class=\"section-prefix-block-full\"
+        >
+            <div class=\"ep-block\">
+    Custom markup example...
+    <div class=\"ep-block__element\">some element</div>
+    <div class=\"ep-block__element--modifier\">some modifier</div>
+</div>
+
+        </div>
+    "
+`;

@@ -1,0 +1,28 @@
+/*
+@bemagic {
+    intro: A short summary of the component
+    description: Description of `background`
+}
+*/
+.ep-background {
+    background-color: white;
+
+    &.ep-cascading-theme-inverse,
+    .ep-cascading-theme-inverse & {
+        background-color: black;
+    }
+}
+
+/*
+@bemagic {
+    description: Description of the backgrounds modifier
+}
+*/
+.ep-background--secondary {
+    background-color: pink;
+
+    &.ep-cascading-theme-inverse,
+    .ep-cascading-theme-inverse & {
+        background-color: yellow;
+    }
+}

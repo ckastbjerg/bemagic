@@ -1,204 +1,40 @@
-'use strict';
+const HeaderBackgrounds = require('./components/HeaderBackgrounds');
+const HeaderStyles = require('./components/HeaderStyles');
+const HeaderThemes = require('./components/HeaderThemes');
+const Menu = require('./components/Menu');
+const Page = require('./components/Page');
 
-const cheerio = require('cheerio');
-const fs = require('fs');
-
-const getComponentTemplateFile = require('../utils/getComponentTemplateFile');
-const utils = require('./utils');
-
-module.exports = function(config, css, data) {
-    const components = data.components || {};
-    const themesGlobal = data.themes || {};
-    const backgroundsGlobal = config.backgroundClass ? data.components[config.backgroundClass] : {};
+module.exports = function({ css, components = {}, themes = {} }) {
+    const config = global.config;
+    const backgrounds = config.backgroundClass ? components[config.backgroundClass] : {};
     const namespace = config.namespace ? `${config.namespace}-` : '';
     const themeClass = config.themeClass ? `${namespace}${config.themeClass}` : '';
     const backgroundClass = config.backgroundClass ? `${namespace}${config.backgroundClass}` : '';
 
-    const componentsPath = fs.realpathSync(config.componentsFolder);
-
-    const $ = cheerio.load(`
-        <div class="bemagic-app js-bemagic-app-template">
+    return `
+        <div
+            class="bemagic-app js-bemagic-app-template"
+            data-theme-class="${namespace + config.themeClass}"
+            data-background-class="${namespace + config.backgroundClass}"
+        >
+            ${config.additionalStylesheets.map(styleSheet => `
+                <link href="${styleSheet.href}" rel="stylesheet" data-stylesheet="${styleSheet.href}">
+            `)}
             <style>${css}</style>
             <div class="bemagic-app__header bemagic-header js-header">
                 <div class="bemagic-header__logo js-header-item">BEMagic (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
-                <div class="bemagic-header__item bemagic-header__themes js-header-item js-header-themes"></div>
-                <div class="bemagic-header__item bemagic-header__themes js-header-item js-header-backgrounds"></div>
+                ${HeaderThemes({ themes, themeClass, backgroundClass })}
+                ${HeaderBackgrounds({ backgrounds, backgroundClass })}
+                ${HeaderStyles(config.additionalStylesheets)}
             </div>
             <div class="bemagic-app__sidebar">
-                <div class="bemagic-menu js-menu"></div>
+                ${Menu(components)}
             </div>
-            <div class="bemagic-app__pages js-pages ${themeClass} ${backgroundClass}"></div>
+            <div class="bemagic-app__pages js-pages ${themeClass} ${backgroundClass}">
+                ${Object.keys(components).map(name =>
+                    Page(components[name])
+                ).join('')}
+            </div>
         </div>
-    `);
-
-    $('.js-bemagic-app-template').attr('data-theme-class', namespace + config.themeClass);
-    $('.js-bemagic-app-template').attr('data-background-class', namespace + config.backgroundClass);
-
-    //----------------------------------------------------------------------
-    //-- Add additional sylesheets and header items to toggle them
-    //----------------------------------------------------------------------
-
-    config.additionalStylesheets.forEach(function(obj) {
-        const $link = $('<link>')
-            .attr('href', obj.href)
-            .attr('rel', 'stylesheet')
-            .attr('data-stylesheet', obj.href);
-
-        const $headerItem = $('<div>')
-            .addClass('bemagic-header__item bemagic-header__link is-active js-stylesheet-toggle')
-            .attr('data-stylesheet-ref', obj.href)
-            .text(`Toggle ${obj.name}`);
-
-        $('.js-header').append($headerItem);
-        $('.js-bemagic-app-template').prepend($link);
-    });
-
-
-    //----------------------------------------------------------------------
-    //-- Add toggling of background component to header (if present)
-    //----------------------------------------------------------------------
-
-    if (backgroundsGlobal && backgroundClass !== '') {
-        $('.js-header-backgrounds').append('Background');
-
-        const $background = $(`<div>`)
-            .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle is-active ${backgroundClass}`)
-            .attr('data-class', backgroundClass);
-        $('.js-header-backgrounds').append($background);
-
-        Object.keys(backgroundsGlobal.modifiers).forEach(function(background){
-            const $background = $(`<div>`)
-                .addClass(`bemagic-header__theme bemagic-theme-button js-background-toggle ${backgroundClass} ${backgroundClass}--${background}`)
-                .attr('data-class', `${backgroundClass}--${background}`);
-            $('.js-header-backgrounds').append($background);
-        });
-    }
-
-    //----------------------------------------------------------------------
-    //-- Add theme-toggle header items
-    //----------------------------------------------------------------------
-
-    $('.js-header-themes').append('Themes');
-
-    const $theme = $(`<div>`)
-        .addClass(`bemagic-header__theme bemagic-theme-button js-theme-toggle is-active`)
-        .attr('data-class', themeClass);
-    $('.js-header-themes').append($theme);
-
-    for (const theme of themesGlobal) {
-        const $theme = $('<div>')
-            .addClass(`bemagic-header__theme bemagic-theme-button js-theme-toggle ${themeClass}-${theme} ${backgroundClass}`)
-            .attr('data-class', `${themeClass}-${theme}`);
-        $('.js-header-themes').append($theme);
-    }
-
-
-    Object.keys(components).forEach(function(c, index) {
-        const activeClass = index === 0 ? 'is-active' : '';
-        const component = components[c];
-        const cn = namespace + c;
-        const descendants = Object.keys(component.descendants);
-        const modifiers = Object.keys(component.modifiers);
-        const themes = Object.keys(component.themes);
-        const tag = utils.getTag(config, component.atRules, c);
-
-
-        //----------------------------------------------------------------------
-        //-- Add page and menu link for component
-        //----------------------------------------------------------------------
-
-        // Add a menu link for each c
-        const $menuItem = $('<div>')
-            .text(c)
-            .addClass(`bemagic-menu__link js-menu-link ${activeClass}`)
-            .attr('data-page', c);
-
-        // Add a page container for each c
-        const $page = $('<div>')
-            .addClass(`bemagic-app__page bemagic-page js-page js-${cn} ${activeClass}`)
-            .attr('data-page', c);
-
-
-        //----------------------------------------------------------------------
-        //-- Composed example (extracted from bemagic.html file living next to component.)
-        //----------------------------------------------------------------------
-
-        const template = getComponentTemplateFile(componentsPath, c);
-        if (template) {
-            const $heading = $(`<div>`)
-                .addClass(`bemagic-page__heading bemagic-page-heading`)
-                .text(`Composed example`);
-
-            const $explain = $(`<div>`)
-                .addClass('bemagic-page-heading__explain')
-                .text(`extracted from ${config.componentsFolder}/${c}/bemagic.html`);
-
-            const $section = $(`<div>`)
-                .addClass(`bemagic-page__section js-page-section ${backgroundClass}`)
-                .attr('data-class', `section-${cn}-full`);
-
-            $heading.append($explain);
-            $section.append($(template));
-            $page.append($heading);
-            $page.append($section);
-        }
-
-
-        //----------------------------------------------------------------------
-        //-- Component (block)
-        //----------------------------------------------------------------------
-
-        const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, cn);
-        const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, component, tag, cn, cn);
-        $page.append($heading);
-        $page.append($section);
-
-
-        //----------------------------------------------------------------------
-        //-- Variations (block--modifier)
-        //----------------------------------------------------------------------
-
-        modifiers.forEach(function(m) {
-            const modifier = component.modifiers[m];
-            const themes = Object.keys(modifier.themes);
-            const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, `${cn}--${m}`);
-            const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, modifier, tag, `${cn}--${m}`, `${cn} ${cn}--${m}`);
-            $page.append($heading);
-            $page.append($section);
-        });
-
-
-        //----------------------------------------------------------------------
-        //-- Descendants (block__element)
-        //----------------------------------------------------------------------
-
-        descendants.forEach(function(d) {
-            const descendant = component.descendants[d];
-            const modifiers = Object.keys(descendant.modifiers);
-            const themes = Object.keys(descendant.themes);
-            const tag = utils.getTag(config, descendant.atRules, d);
-            const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, `${cn}__${d}`);
-            const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, descendant, tag, `${cn}__${d}`, `${cn}__${d}`);
-            $page.append($heading);
-            $page.append($section);
-
-            //----------------------------------------------------------------------
-            //-- Descendant variations (block__element--modifier)
-            //----------------------------------------------------------------------
-
-            modifiers.forEach(function(m) {
-                const modifier = descendant.modifiers[m];
-                const themes = Object.keys(modifier.themes);
-                const $heading = utils.getPageHeadingMarkup($, config, themeClass, backgroundClass, themes, `${cn}__${d}--${m}`);
-                const $section = utils.getPageSectionMarkup($, config, themeClass, backgroundClass, modifier, tag, `${cn}__${d}--${m}`, `${cn}__${d} ${cn}__${d}--${m}`);
-                $page.append($heading);
-                $page.append($section);
-            });
-        });
-
-        $('.js-pages').append($page);
-        $('.js-menu').append($menuItem);
-    });
-
-    return $.html();
+    `;
 };

@@ -1,0 +1,9 @@
+{
+  "description": "Example of using bemagic with node-sass and components folder",
+  "scripts": {
+    "start": "make"
+  },
+  "devDependencies": {
+    "node-sass": "4.0.0"
+  }
+}

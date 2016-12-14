@@ -1,0 +1,23 @@
+exports[`test it works for complex components 1`] = `
+"
+        ###### Table of contents
+        
+        
+        
+        
+        - **[Component overview](#component-overview)**
+        - **[Contributing](#contributing)**
+    "
+`;
+
+exports[`test it works for simple components 1`] = `
+"
+        ###### Table of contents
+        
+        
+        
+        
+        - **[Component overview](#component-overview)**
+        - **[Contributing](#contributing)**
+    "
+`;

@@ -1,6 +1,6 @@
 # At rules
 
-> This file holds descriptions for all available at-rules
+> This file holds descriptions for all available at-rule options
 
 * [usage](#usage)
 * [intro](#intro)
@@ -65,10 +65,10 @@ Example:
 ```css
 /*
 @bemagic {
-    tag: article
+    tag: input
 }
 */
-.block {}
+.block__textfield {}
 ```
 
 

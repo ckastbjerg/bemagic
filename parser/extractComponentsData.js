@@ -1,127 +1,85 @@
-'use strict';
+const getBlockName = require('./utils/getBlockName');
+const getBlockObject = require('./utils/getBlockObject');
+const getBlockSelector = require('./utils/getBlockSelector');
+const getElementName = require('./utils/getElementName');
+const getElementObject = require('./utils/getElementObject');
+const getMixedStateObject = require('./utils/getMixedStateObject');
+const getModifierName = require('./utils/getModifierName');
+const getModifierObject = require('./utils/getModifierObject');
+const getPseudoStateName = require('./utils/getPseudoStateName');
+const getShouldIgnoreSelector = require('./utils/getShouldIgnoreSelector');
+const getStateName = require('./utils/getStateName');
+const getStateObject = require('./utils/getStateObject');
+const getThemeName = require('./utils/getThemeName');
+const getThemeObject = require('./utils/getThemeObject');
+const getCustomMarkup = require('./utils/getCustomMarkup');
 
-const getComponentTemplateFile = require('../utils/getComponentTemplateFile');
-const utils = require('./utils');
-const excludeRegExp = /pseudo-before|pseudo-after|ms-|moz-|class\*=/g;
-
-/*
- * Returns a component selector stripped from theming classes or null if invalid selector
- * @param {String} selector A CSS selector
- * @param {Object} config The configuration for a bemagic project
- * @return {String|Null}
- */
-function getComponentSelector(config, selector) {
-    if (!selector.match(/\./) || selector.match(excludeRegExp)) { return; }
-    const classSelectors = selector.trim().split(/ /);
-
-    // Investigate use of theming or eligal nesting. Needs cleanup!
-    if (classSelectors.length > 1 && utils.getComponentName(config, classSelectors[0]) === config.themeClass) {
-        if (classSelectors.length > 2) {
-            return;
-        } else {
-            return classSelectors[1];
-        }
-    } else if (classSelectors.length > 1) {
-        return;
+function setStates({
+    object,
+    stateName,
+    pseudoStateName,
+    mixedStateName,
+}) {
+    if (stateName && pseudoStateName) {
+        object.mixedStates[mixedStateName] = getMixedStateObject({ stateName, pseudoStateName });
+    } else if (stateName) {
+        object.states[stateName] = getStateObject(stateName);
+    } else if (pseudoStateName) {
+        object.pseudoStates[pseudoStateName] = pseudoStateName;
     }
-
-    return classSelectors[0];
 }
 
-module.exports = function(config, selector, components) {
-    const className = getComponentSelector(config, selector);
-    if (!className) { return; }
+module.exports = function({
+    selector = null,
+    components = null,
+}) {
+    if (!selector) { throw new Error('Missing argument: selector'); }
+    if (!components) { throw new Error('Missing argument: components'); }
+    if (getShouldIgnoreSelector(selector)) { return; }
 
-    const componentName = utils.getComponentName(config, className);
-    if (componentName.indexOf(config.cascadeClass) !== -1) {
-        return;
-    }
-
-    let themingUsed = false;
-    const descendantName = utils.getDescendantName(className);
-    const modifierName = utils.getModifierName(config, className);
-    const stateName = utils.getStateName(className);
-    const pseudoStateName = utils.getPseudoStateName(className);
-    const themeName = utils.getThemeName(config, selector);
+    let isThemingUsed = false;
+    const blockClass = getBlockSelector(selector);
+    const blockName = getBlockName(blockClass);
+    const elementName = getElementName(blockClass);
+    const modifierName = getModifierName(blockClass);
+    const stateName = getStateName(blockClass);
+    const pseudoStateName = getPseudoStateName(blockClass);
+    const themeName = getThemeName(selector);
     const mixedStateName = stateName + pseudoStateName;
+    const customMarkup = getCustomMarkup({ blockName, components });
+    const component = getBlockObject({ blockName, customMarkup });
 
-    if (componentName.indexOf(config.themeClass) !== -1) {
-        return;
+    function setTheming(part) {
+        if (themeName && !isThemingUsed) {
+            isThemingUsed = true;
+            part.themes[themeName] = getThemeObject(themeName);
+        }
     }
 
-    let customMarkup;
-    if (Object.keys(components).indexOf(componentName) === -1) {
-        customMarkup = getComponentTemplateFile(config.componentsFolder, componentName);
-    } else {
-        customMarkup = components[componentName].customMarkup;
-    }
-
-    const component = utils.getComponentObject(config, componentName, className, customMarkup);
-
-    if (descendantName) {
-        const descendant = utils.getDescendantObject(config, componentName, descendantName);
+    if (elementName) {
+        const element = getElementObject({ blockName, elementName });
 
         if (modifierName) {
-            const modifier = utils.getModifierObject(config, componentName, modifierName, descendantName);
-
-            if (stateName && pseudoStateName) {
-                modifier.mixedStates[mixedStateName] = utils.getMixedStateObject(stateName, pseudoStateName);
-            } else if (stateName) {
-                modifier.states[stateName] = utils.getStateObject(stateName);
-            } else if (pseudoStateName) {
-                modifier.pseudoStates[pseudoStateName] = pseudoStateName;
-            } else {
-                descendant.modifiers[modifierName] = modifier;
-            }
-
-            if (themeName && !themingUsed) {
-                themingUsed = true;
-                modifier.themes[themeName] = utils.getThemeObject(config, themeName);
-            }
-
-            descendant.modifiers[modifierName] = modifier;
-        } else if (stateName && pseudoStateName) {
-            descendant.mixedStates[mixedStateName] = utils.getMixedStateObject(stateName, pseudoStateName);
-        } else if (stateName) {
-            descendant.states[stateName] = utils.getStateObject(stateName);
-        } else if (pseudoStateName) {
-            descendant.pseudoStates[pseudoStateName] = pseudoStateName;
+            const modifier = getModifierObject({ blockName, modifierName, elementName });
+            setStates({ object: modifier, stateName, pseudoStateName, mixedStateName });
+            setTheming(modifier);
+            element.modifiers[modifierName] = modifier;
+        } else {
+            setStates({ object: element, stateName, pseudoStateName, mixedStateName });
         }
 
-        if (themeName && !themingUsed) {
-            themingUsed = true;
-            descendant.themes[themeName] = utils.getThemeObject(config, themeName);
-        }
-
-        component.descendants[descendantName] = descendant;
+        setTheming(element);
+        component.elements[elementName] = element;
     } else if (modifierName) {
-        const modifier = utils.getModifierObject(config, componentName, modifierName);
-
-        if (stateName && pseudoStateName) {
-            modifier.mixedStates[mixedStateName] = utils.getMixedStateObject(stateName, pseudoStateName);
-        } else if (stateName) {
-            modifier.states[stateName] = utils.getStateObject(stateName);
-        } else if (pseudoStateName) {
-            modifier.pseudoStates[pseudoStateName] = pseudoStateName;
-        }
-
-        if (themeName && !themingUsed) {
-            themingUsed = true;
-            modifier.themes[themeName] = utils.getThemeObject(config, themeName);
-        }
-
+        const modifier = getModifierObject({ blockName, modifierName });
+        setStates({ object: modifier, stateName, pseudoStateName, mixedStateName });
+        setTheming(modifier);
         component.modifiers[modifierName] = modifier;
-    } else if (stateName && pseudoStateName) {
-        component.mixedStates[mixedStateName] = utils.getMixedStateObject(stateName, pseudoStateName);
-    } else if (stateName) {
-        component.states[stateName] = utils.getStateObject(stateName);
-    } else if (pseudoStateName) {
-        component.pseudoStates[pseudoStateName] = pseudoStateName;
+    } else {
+        setStates({ object: component, stateName, pseudoStateName, mixedStateName });
     }
 
-    if (themeName && !themingUsed) {
-        component.themes[themeName] = utils.getThemeObject(config, themeName);
-    }
+    setTheming(component);
 
     return component;
 };

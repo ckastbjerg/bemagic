@@ -1,0 +1,25 @@
+exports[`test returns a string of attributes from an object 1`] = `
+"
+        <div class=\"bemagic-page__heading bemagic-page-heading\">
+            block
+            <div class=\"bemagic-page-heading__explain\">
+                Styled for themes:
+            </div>
+            
+        <div
+            class=\"bemagic-theme-button bemagic-theme-button--small prefix-theme-secondary background js-page-theme\"
+            data-section-ref=\"block\"
+            data-theme=\"secondary\"
+        >
+        </div>
+    
+        <div
+            class=\"bemagic-theme-button bemagic-theme-button--small prefix-theme-inverse background js-page-theme\"
+            data-section-ref=\"block\"
+            data-theme=\"inverse\"
+        >
+        </div>
+    
+        </div>
+    "
+`;

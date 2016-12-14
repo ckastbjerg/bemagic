@@ -93,6 +93,14 @@
   padding: 12px;
   position: relative;
 }
+/* EXPERIMENTAL HACK: Prevent absolutely, fixed and the like from looking off */
+.bemagic-page__section > * {
+  bottom: 0 !important;
+  left: 0 !important;
+  position: relative !important;
+  right: 0 !important;
+  top: 0 !important;
+}
 .bemagic-page-heading {
   background-color: #fff;
   border-bottom: 1px solid #e5e5e5;

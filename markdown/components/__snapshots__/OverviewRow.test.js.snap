@@ -1,0 +1,8 @@
+exports[`test it works 1`] = `
+"
+        | **[\`block\`](#block)**
+        | [component](../CONVENTIONS.md#components)
+        | \`is-active\` and \`is-dimmed\`.
+        | div
+    "
+`;

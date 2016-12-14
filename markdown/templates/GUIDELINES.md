@@ -14,7 +14,7 @@ encapsulation), and to better communicate the relationships between classes.
 * [Modifiers](#modifiers)
 * [Descendants](#descendants)
 * [States](#states)
-* [Theming](#theming)
+* [Cascades](#cascades)
 
 <a name="naming-syntax"></a>
 ### Naming syntax
@@ -127,14 +127,14 @@ are scoped to the component).
 <button class="{{NAMESPACE}}-button is-loading"></button>
 ```
 
-<a name="theming"></a>
-### Theming
+<a name="cascades"></a>
+### Cascades
 
 **{{NAME}} components should never be styled from within other components**
 (also known as contextual styling). However, there are situations where it makes
 sence to have a Component modify its appearance based on the context in which it
-appears. In other words, the component knows about the theme it appears in
-whereas a theme has no idea which components it contains.
+appears. A common example of this is theming, In this case, the component should know
+about the theme in which it appears but the theme should not know about the component.
 
 ```css
 .{{NAMESPACE}}-{{THEMECLASS}}-inverse .{{NAMESPACE}}-button { /* … */ }

@@ -1,5 +1,3 @@
-'use strict';
-
 const TAGS = {
     button: 'button',
     input: 'input',
@@ -13,9 +11,21 @@ const TAGS = {
     paragraph: 'p',
 };
 
-// Returns string. Either 1. user-specified tag, or 2. tag from config file, 3. div
-module.exports = function(componentName) {
-    let tag = TAGS[componentName] || 'div';
+module.exports = function({
+    atRules = {},
+    blockName = null,
+}) {
+    if (!blockName) {
+        throw(new Error('Missing argument: blockName'));
+    }
+
+    let tag = 'div';
+
+    if (atRules['tag']) {
+        tag = atRules['tag'];
+    } else if (TAGS[blockName]) {
+        tag = TAGS[blockName];
+    }
 
     if (tag === 'a') {
         tag += ' href="#"';

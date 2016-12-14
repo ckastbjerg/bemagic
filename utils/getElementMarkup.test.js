@@ -1,89 +1,74 @@
-'use strict';
-
-const test = require('tape');
-const tapSpec = require('tap-spec');
-test.createStream()
-  .pipe(tapSpec())
-  .pipe(process.stdout);
-
+/* eslint-env jest */
 const getElementMarkup = require('../utils/getElementMarkup');
 
-test('works for component', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
+test('works for block', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
     });
-
-    t.equal(element, '<div class="block"></div>');
-    t.end();
+    const expected = '<div class="block">…</div>';
+    expect(actual).toEqual(expected);
 });
 
-test('works for component with modifier', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
-        modifier: 'modifier',
+test('works for block with modifier', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
+        modifierName: 'modifier',
     });
-
-    t.equal(element, '<div class="block block--modifier"></div>');
-    t.end();
+    const expected = '<div class="block block--modifier">…</div>';
+    expect(actual).toEqual(expected);
 });
 
-test('works for component with element', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
-        element: 'element',
+test('works for block with element', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
+        elementName: 'element',
     });
-
-    t.equal(element, '<div class="block__element"></div>');
-    t.end();
+    const expected = '<div class="block__element">…</div>';
+    expect(actual).toEqual(expected);
 });
 
-test('works for component with element with modifier', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
-        element: 'element',
-        modifier: 'modifier',
+test('works for block with element and modifier', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
+        elementName: 'element',
+        modifierName: 'modifier',
     });
-
-    t.equal(element, '<div class="block__element block__element--modifier"></div>');
-    t.end();
+    const expected = '<div class="block__element block__element--modifier">…</div>';
+    expect(actual).toEqual(expected);
 });
 
-test('works for component with element with state', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
-        state: 'is-state',
+test('works for block with element with state', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
+        stateName: 'is-state',
     });
-
-    t.equal(element, '<div class="block is-state"></div>');
-    t.end();
+    const expected = '<div class="block is-state">…</div>';
+    expect(actual).toEqual(expected);
 });
 
-test('works for component with custom tag', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
-        tag: 'span',
+test('works with custom tag', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
+        tagName: 'span',
     });
-
-    t.equal(element, '<span class="block"></span>');
-    t.end();
+    const expected = '<span class="block">…</span>';
+    expect(actual).toEqual(expected);
 });
 
-test('works for component with children', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
+test('works with children', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
         children: 'some text',
     });
-
-    t.equal(element, '<div class="block">some text</div>');
-    t.end();
+    const expected = '<div class="block">some text</div>';
+    expect(actual).toEqual(expected);
 });
 
-test('works for component with attributes', function (t) {
-    const element = getElementMarkup({
-        component: 'block',
+test('works with attributes', function () {
+    const actual = getElementMarkup({
+        blockName: 'block',
         attributes: 'id="test" data-test="test"',
     });
-
-    t.equal(element, '<div id="test" data-test="test" class="block"></div>');
-    t.end();
+    const expected = '<div id="test" data-test="test" class="block">…</div>';
+    expect(actual).toEqual(expected);
 });
