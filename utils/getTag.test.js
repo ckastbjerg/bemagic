@@ -4,24 +4,18 @@ const getTag = require('./getTag');
 test('tag specified in @ rule takes precedence', () => {
     expect(getTag({
         atRules: { tag: 'div' },
-        blockName: 'button',
+        name: 'button',
     })).toEqual('div');
 });
 
 test('uses component name if this maps to a supplied tag', () => {
     expect(getTag({
-        blockName: 'button',
+        name: 'button',
     })).toEqual('button');
-});
-
-test('prepends a dummy href for links', () => {
-    expect(getTag({
-        blockName: 'link',
-    })).toEqual('a href="#"');
 });
 
 test('defaults to a div', () => {
     expect(getTag({
-        blockName: 'something',
+        name: 'not-a-valid-tag',
     })).toEqual('div');
 });

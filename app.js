@@ -61,11 +61,16 @@ module.exports.run = function(options) {
                     lintComponents(components);
                 }
 
-                // if (config.componentsFolder) {
-                //     markdowner(css, data.components);
-                // }
+                if (config.componentsFolder) {
+                    markdowner(components);
+                }
+
                 const markup = markupper({ css, components, themes });
                 socket.emit('data', markup);
+
+                console.log(`🌈  ${chalk.green('Rebuild complete!')}`);
+            }).catch(err => {
+                console.log('parsing failed', err);
             });
         }
 

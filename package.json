@@ -23,7 +23,7 @@
     "common-tags": "^1.4.0",
     "deep-extend": "^0.4.1",
     "diff": "^2.2.1",
-    "express": "^4.13.3",
+    "express": "^4.15.3",
     "postcss": "^5.0.14",
     "rework": "^1.0.1",
     "rework-pseudo-classes": "^0.3.0",

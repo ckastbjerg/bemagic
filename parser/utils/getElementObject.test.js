@@ -12,10 +12,10 @@ test('it has the expected shape', () => {
         modifiers: {},
         name: 'element',
         classes: 'prefix-block__element',
-        markup: '<div class="prefix-block__element">…</div>',
+        markup: null,
         pseudoStates: {},
         states: {},
-        tagName: 'div',
+        tagName: null,
         themes: {},
     });
 });

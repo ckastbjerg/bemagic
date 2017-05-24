@@ -5,6 +5,7 @@ test('it works for components without states', () => {
     global.config = require('../../config');
 
     expect(Section({
+        markup: '<div class="block">The quick brown fox jumps over the lazy dog</div>',
         atRules: {},
         classes: 'block',
         mixedStates: {},
@@ -22,6 +23,7 @@ test('it returns the expected markup', () => {
     expect(Section({
         atRules: {},
         classes: 'block',
+        markup: '<div class="block">The quick brown fox jumps over the lazy dog</div>',
         mixedStates: {
             hoverdimmed: {
                 atRules: {},

@@ -7,12 +7,16 @@ const chalk = require('chalk');
 const extractComponentsData = require('./extractComponentsData');
 const setAtRules = require('./setAtRules');
 const getAtRules = require('./getAtRules');
+const setTags = require('./setTags');
+const setMarkup = require('./setMarkup');
+const setDerivedExamples = require('./setDerivedExamples');
+
 const getThemeName = require('./utils/getThemeName');
 const getThemeObject = require('./utils/getThemeObject');
 
 module.exports = css => new Promise((resolve) => {
     postcss().process(css).then(function(css) {
-        const components = {};
+        let components = {};
         const themes = {};
 
         css.root.walkRules(function (rule) {
@@ -34,6 +38,7 @@ module.exports = css => new Promise((resolve) => {
             const next = comment.next();
             const text = comment.text;
 
+            if (!comment.text.match(/@bemagic/)) { return; }
             if (!next) {
                 console.warn(chalk.yellow('\n@bemagic: Couldn\'t match this comment to a selector:'));
                 console.warn(`\n${text}`);
@@ -48,9 +53,15 @@ module.exports = css => new Promise((resolve) => {
             });
         });
 
+        components = setTags(components);
+        components = setMarkup(components);
+        components = setDerivedExamples(components);
+
         resolve({
             components: components,
             themes: themes,
         });
+    }).catch(err => {
+        console.error('postcss process error', err);
     });
 });

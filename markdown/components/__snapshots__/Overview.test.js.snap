@@ -4,27 +4,11 @@ exports[`test it works 1`] = `
         #### Component Overview
     | Class Name | Type | States | Tag |
 |:-----|:-----|:-----|:-----|
+| **[\`block\`](#block)** | [component](../CONVENTIONS.md#components) | \`is-dimmed\`. | N/A |
+| **[\`modifier\`](#modifier)** | [modifier](../CONVENTIONS.md#modifiers) | \`is-something\`. | N/A |
+| **[\`element\`](#element)** | [element](../CONVENTIONS.md#elements) | \`is-dimmed\`. | N/A |
+| **[\`modifier\`](#modifier)** | [modifier](../CONVENTIONS.md#modifiers) | \`is-something\`. | N/A |
 
-        | **[\`block\`](#block)**
-        | [component](../CONVENTIONS.md#components)
-        | \`is-dimmed\`.
-        | N/A
-    
-        | **[\`block__element--modifier\`](#block__element--modifier)**
-        | [modifier](../CONVENTIONS.md#modifiers)
-        | \`is-something\`.
-        | N/A
-    
-        | **[\`block__element\`](#block__element)**
-        | [element](../CONVENTIONS.md#elements)
-        | \`is-dimmed\`.
-        | N/A
-    
-        | **[\`block__element--modifier\`](#block__element--modifier)**
-        | [modifier](../CONVENTIONS.md#modifiers)
-        | \`is-something\`.
-        | N/A
-    
 
 "
 `;

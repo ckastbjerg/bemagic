@@ -13,7 +13,7 @@ module.exports = ({ part, type, componentName }) => {
     }
 
     return `
-        ${utils.sectionTitle(type)};
+        ${utils.sectionTitle(type)}
         ${utils.description(`
             The ${componentName} component makes use of
             [\`modifiers\`](${constants.CONVENTIONS_PATH}#modifiers) to alter its appearance

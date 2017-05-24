@@ -3,17 +3,11 @@ const utils = require('../utils');
 
 module.exports = ({
     atRules,
-    classes,
+    name,
     markup,
     states,
     themes,
 }) => {
-    if (typeof atRules !== 'object') {
-        throw new Error('Parameter `atRules` must be an object');
-    } else if (typeof classes !== 'string') {
-        throw new Error('Parameter `atRules` must be an object');
-    }
-
     const stateInfo = states.length > 0
         ? `The component will react to ${utils.listString({ list: states })} states`
         : '';
@@ -23,8 +17,8 @@ module.exports = ({
         : '*This class could use a description...*';
 
     return `
-        <a name=${classes.replace(/ /g, '')}></a>
-        #### \`${classes}\` ${atRules['required'] ? '(required)' : ''}
+        <a name=${name.replace(/ /g, '')}></a>
+        #### \`${name}\` ${atRules['mandatory'] ? '(mandatory)' : ''}
         ${description}
         ${markup}
         Elements using this class will change appearance when used inside [theme]
@@ -41,7 +35,7 @@ module.exports = ({
             }
 
             return `- **${utils.capitalize(rule)}:** ${atRules[rule]}`;
-        })}
+        }).join('')}
         ----------
     `;
 };

@@ -19,3 +19,20 @@ exports[`test returns a string of attributes from an object 1`] = `
         </div>
     "
 `;
+
+exports[`test will use derived example if no html file exists 1`] = `
+"
+        <div class=\"bemagic-page__heading bemagic-page-heading\">
+            Derived example
+            <div class=\"bemagic-page-heading__explain\">
+                sophisticated guess regarding the components composition
+            </div>
+        </div>
+        <div
+            class=\"bemagic-page__section js-page-section \"
+            data-class=\"section-prefix-derive-example-full\"
+        >
+            <div>A derived example</div>
+        </div>
+    "
+`;

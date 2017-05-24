@@ -3,7 +3,7 @@ exports[`test it works 1`] = `
         
         <a name=modifier></a>
         #### Modifier
-    ;
+    
         
             The block component makes use of
             [\`modifiers\`](../CONVENTIONS.md#modifiers) to alter its appearance
@@ -18,11 +18,8 @@ exports[`test it works 1`] = `
         
         | Name | Description |
         |:-----|:-----|
+        | **\`modifier\`** | N/A |
 
-        
-                | **\`modifier\`**
-                | N/A |
-            
     
         <sub>See the [Component Overview](#component-overview) for more details</sub>
     "

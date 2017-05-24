@@ -11,10 +11,10 @@ test('it works for block and modifier', () => {
         mixedStates: {},
         name: 'modifier',
         classes: 'prefix-block prefix-block--modifier',
-        markup: '<div class="prefix-block prefix-block--modifier">…</div>',
+        markup: null,
         pseudoStates: {},
         states: {},
-        tagName: 'div',
+        tagName: null,
         themes: {},
     });
 });
@@ -30,10 +30,10 @@ test('it works for block, element and modifier', () => {
         mixedStates: {},
         name: 'modifier',
         classes: 'prefix-block__element prefix-block__element--modifier',
-        markup: '<div class="prefix-block__element prefix-block__element--modifier">…</div>',
+        markup: null,
         pseudoStates: {},
         states: {},
-        tagName: 'div',
+        tagName: null,
         themes: {},
     });
 });

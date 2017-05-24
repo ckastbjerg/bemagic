@@ -1,6 +1,4 @@
 const getElementClass = require('../../utils/getElementClass');
-const getElementMarkup = require('../../utils/getElementMarkup');
-const getTag = require('../../utils/getTag');
 
 module.exports = function({
     blockName = null,
@@ -10,30 +8,18 @@ module.exports = function({
         throw new Error('Missing argument: blockName');
     }
 
-    const config = global.config;
-    const prefix = config.namespace ? `${config.namespace}-` : '';
-
     return {
         atRules: {},
         elements: {},
         mixedStates: {},
         modifiers: {},
         name: blockName,
-        classes: getElementClass({
-            blockName: `${prefix}${blockName}`,
-        }),
-        markup: getElementMarkup({
-            blockName: `${prefix}${blockName}`,
-            tagName: getTag({
-                blockName: blockName,
-            }),
-        }),
+        classes: getElementClass({ blockName }),
+        markup: null,
         customMarkup: customMarkup,
         pseudoStates: {},
         states: {},
-        tagName: getTag({
-            blockName: blockName,
-        }),
+        tagName: null,
         themes: {},
     };
 };

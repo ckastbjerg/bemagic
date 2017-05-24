@@ -1,17 +1,19 @@
 module.exports = {
     atRules: {
         tag: 'div',
+        intro: 'Some intro',
         description: 'Some description...',
-        required: true,
+        mandatory: true,
     },
     classes: 'block',
     customMarkup: null,
+    derivedExample: '<div>Example markup derived by bemagic</div>',
     elements: {
         element: {
             atRules: {
                 tag: 'div',
                 description: 'Some description...',
-                required: false,
+                mandatory: false,
             },
             classes: 'block__element',
             markup: '<div class="block__element">…</div>',
@@ -20,33 +22,33 @@ module.exports = {
                     atRules: {
                         tag: 'div',
                         description: 'Some description...',
-                        required: true,
+                        mandatory: true,
                     },
                     pseudo: 'hover',
                     state: 'dimmed',
                 },
             },
             modifiers: {
-                modifier: {
+                'element-modifier': {
                     atRules: {
                         tag: 'div',
                         description: 'Some description...',
-                        required: false,
+                        mandatory: false,
                     },
-                    classes: 'block__element block__element--modifier',
-                    markup: '<div class="block__element block__element--modifier">…</div>',
+                    classes: 'block__element block__element--element-modifier',
+                    markup: '<div class="block__element block__element--element-modifier">…</div>',
                     mixedStates: {
                         dimmedhover: {
                             atRules: {
                                 tag: 'div',
                                 description: 'Some description...',
-                                required: false,
+                                mandatory: false,
                             },
                             pseudo: 'hover',
                             state: 'dimmed',
                         },
                     },
-                    name: 'modifier',
+                    name: 'element-modifier',
                     pseudoStates: {
                         hover: 'hover',
                     },
@@ -55,7 +57,7 @@ module.exports = {
                             atRules: {
                                 tag: 'div',
                                 description: 'Some description...',
-                                required: false,
+                                mandatory: false,
                             },
                             name: 'dimmed',
                         },
@@ -78,7 +80,7 @@ module.exports = {
                     atRules: {
                         tag: 'div',
                         description: 'Some description...',
-                        required: false,
+                        mandatory: false,
                     },
                     name: 'dimmed',
                 },
@@ -98,7 +100,7 @@ module.exports = {
             atRules: {
                 tag: 'div',
                 description: 'Some description...',
-                required: false,
+                mandatory: false,
             },
             pseudo: 'hover',
             state: 'dimmed',
@@ -109,7 +111,7 @@ module.exports = {
             atRules: {
                 tag: 'div',
                 description: 'Some description...',
-                required: true,
+                mandatory: true,
             },
             classes: 'block block--modifier',
             markup: '<div class="block block--modifier">…</div>',
@@ -118,7 +120,7 @@ module.exports = {
                     atRules: {
                         tag: 'div',
                         description: 'Some description...',
-                        required: true,
+                        mandatory: true,
                     },
                     pseudo: 'hover',
                     state: 'dimmed',
@@ -133,7 +135,7 @@ module.exports = {
                     atRules: {
                         tag: 'div',
                         description: 'Some description...',
-                        required: true,
+                        mandatory: true,
                     },
                     name: 'dimmed',
                 },
@@ -156,7 +158,7 @@ module.exports = {
             atRules: {
                 tag: 'div',
                 description: 'Some description...',
-                required: true,
+                mandatory: true,
             },
             name: 'dimmed',
         },

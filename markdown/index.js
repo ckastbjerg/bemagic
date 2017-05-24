@@ -2,40 +2,49 @@
 
 const fs = require('fs');
 
-const getComponentsMarkdown = require('./getComponentsMarkdown');
-const getComponentMarkdown = require('./getComponentMarkdown');
-const getConventionsMarkdown = require('./getConventionsMarkdown');
+const Components = require('./Components');
+const NamingConventions = require('./NamingConventions');
+const Component = require('./components/Component');
 
-module.exports = function(css, components) {
+module.exports = components => {
     const config = global.config;
-    components = components || {};
 
     if (!config.componentsFolder) {
-        console.error('Required option `componentsFolder` not provided');
-        return;
+        throw new Error('Required option `componentsFolder` not provided');
     }
 
+    const componentsKeys = Object.keys(components);
     const componentsFolder = fs.realpathSync(config.componentsFolder);
-    const componentsMarkdown = getComponentsMarkdown(components);
-    const conventionsMarkdown = getConventionsMarkdown(components);
 
-    Object.keys(components).forEach(function(componentName) {
-        let template;
-        try {
-            template = fs.readFileSync(`${componentsFolder}/${componentName}/bemagic.html`, 'utf-8');
-        } catch (e) {
-            // console.log('Error:', e);
-        }
+    componentsKeys.forEach(componentName => {
+        const markdown = Component(components[componentName]);
 
-        const markdown = getComponentMarkdown(components[componentName], template);
-        try {
-            fs.writeFileSync(`${componentsFolder}/${componentName}/README.md`, markdown);
-        } catch (e) {
-            console.log('Could not save README.md for', componentName);
-            console.log('Error:', e);
+        fs.writeFile(`${componentsFolder}/${componentName}/README.md`, markdown, error => {
+            if (error) {
+                console.error(`Could not save README.md for ${componentName}`, error);
+                console.error(`Does the folder ${componentsFolder}/${componentName} exist?`);
+            }
+        });
+    });
+
+    fs.writeFile(`${componentsFolder}/README.md`, Components({
+        components: componentsKeys,
+        systemName: config.name,
+    }), error => {
+        if (error) {
+            console.error('Could not save README.md', error);
+            console.error(`Does the folder ${componentsFolder} exist?`);
         }
     });
 
-    fs.writeFileSync(`${componentsFolder}/README.md`, componentsMarkdown);
-    fs.writeFileSync(`${componentsFolder}/CONVENTIONS.md`, conventionsMarkdown);
+    fs.writeFile(`${componentsFolder}/CONVENTIONS.md`, NamingConventions({
+        systemName: config.name,
+        namespace: config.namespace,
+        themeClass: config.themeClass,
+    }), error => {
+        if (error) {
+            console.error('Could not save CONVENTIONS.md', error);
+            console.error(`Does the folder ${componentsFolder} exist?`);
+        }
+    });
 };

@@ -1,0 +1,40 @@
+/*
+@bemagic {
+    intro: A component for bemagic to guess the structure of,
+    description: An example structure of this component will be derived by bemagic,
+}
+*/
+.ep-derive-example {
+    background: blue;
+    padding: 12px;
+}
+
+/*
+@bemagic {
+    description: a child,
+}
+*/
+.ep-derive-example__child {
+    background: yellow;
+    padding: 12px;
+}
+
+/*
+@bemagic {
+    description: a grandchild,
+    parent: child,
+}
+*/
+.ep-derive-example__grand-child {
+    background: green;
+}
+
+/*
+@bemagic {
+    description: another grandchild,
+    parent: child,
+}
+*/
+.ep-derive-example__grand-child-sibling {
+    background: red;
+}

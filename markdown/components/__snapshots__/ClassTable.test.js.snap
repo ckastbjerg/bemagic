@@ -2,10 +2,7 @@ exports[`test it works for correct shape 1`] = `
 "
         | Name | Description |
         |:-----|:-----|
+        | **\`some-name\`** | Some description... |
 
-        
-                | **\`some-name\`**
-                | Some description... |
-            
     "
 `;

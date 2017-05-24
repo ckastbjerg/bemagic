@@ -8,50 +8,50 @@ const mockedBlock = {
     classes: 'block',
     customMarkup: null,
     elements: {},
-    markup: '<div class="block">…</div>',
+    markup: null,
     mixedStates: {},
     modifiers: {},
     name: 'block',
     pseudoStates: {},
     states: {},
-    tagName: 'div',
+    tagName: null,
     themes: {},
 };
 
 const mockedModifier = {
     atRules: {},
     classes: 'block block--modifier',
-    markup: '<div class="block block--modifier">…</div>',
+    markup: null,
     mixedStates: {},
     name: 'modifier',
     pseudoStates: {},
     states: {},
-    tagName: 'div',
+    tagName: null,
     themes: {},
 };
 
 const mockedElement = {
     atRules: {},
     classes: 'block__element',
-    markup: '<div class="block__element">…</div>',
+    markup: null,
     mixedStates: {},
     modifiers: {},
     name: 'element',
     pseudoStates: {},
     states: {},
-    tagName: 'div',
+    tagName: null,
     themes: {},
 };
 
 const mockedElementModifier = {
     atRules: {},
     classes: 'block__element block__element--modifier',
-    markup: '<div class="block__element block__element--modifier">…</div>',
+    markup: null,
     mixedStates: {},
     name: 'modifier',
     pseudoStates: {},
     states: {},
-    tagName: 'div',
+    tagName: null,
     themes: {},
 };
 

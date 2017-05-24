@@ -40,6 +40,11 @@ module.exports = function({
     let isThemingUsed = false;
     const blockClass = getBlockSelector(selector);
     const blockName = getBlockName(blockClass);
+
+    if (!blockName) {
+        return;
+    }
+
     const elementName = getElementName(blockClass);
     const modifierName = getModifierName(blockClass);
     const stateName = getStateName(blockClass);

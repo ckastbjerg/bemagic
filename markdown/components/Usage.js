@@ -1,6 +1,6 @@
 const sectionTitle = require('../utils').sectionTitle;
 
-module.exports = (markup) => {
+module.exports = markup => {
     return `
         ${sectionTitle('Usage')}
         ${markup}

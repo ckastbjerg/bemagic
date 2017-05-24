@@ -1,16 +1,22 @@
 'use strict';
 
-const TitleAndIntro = require('./components/TitleAndIntro');
-const TableOfContents = require('./components/TableOfContents');
-const Usage = require('./components/Usage');
-const Theming = require('./components/Theming');
-const Info = require('./components/Info');
-const Overview = require('./components/Overview');
-const ClassDetails = require('./components/ClassDetails');
-const Contributing = require('./components/Contributing');
+const stripIndents = require('common-tags/lib/stripIndents');
 
-module.exports = function({ component, exampleMarkup }) {
-    return `
+const getComponentTemplateFile = require('../../utils/getComponentTemplateFile');
+
+const TitleAndIntro = require('./TitleAndIntro');
+const TableOfContents = require('./TableOfContents');
+const Usage = require('./Usage');
+const Theming = require('./Theming');
+const Info = require('./Info');
+const Overview = require('./Overview');
+const ClassDetails = require('./ClassDetails');
+const Contributing = require('./Contributing');
+
+module.exports = component => {
+    const exampleMarkup = getComponentTemplateFile(component.name);
+
+    return stripIndents`
         ${TitleAndIntro({
             componentName: component.name,
             componentClasses: component.classes,
@@ -24,7 +30,7 @@ module.exports = function({ component, exampleMarkup }) {
         })}
         ${Usage(exampleMarkup ? exampleMarkup : component.markup)}
         ${Theming({
-            classes: 'test',
+            classes: component.classes,
             tag: component.tagName,
         })}
         ${Info({
@@ -45,8 +51,8 @@ module.exports = function({ component, exampleMarkup }) {
         ${Overview(component)}
         ${ClassDetails({
             atRules: component.atRules,
-            classes: component.classes,
             markup: component.markup,
+            name: component.name,
             states: Object.keys(component.pseudoStates),
             themes: Object.keys(component.themes),
         })}
@@ -55,30 +61,30 @@ module.exports = function({ component, exampleMarkup }) {
 
             return ClassDetails({
                 atRules: modifier.atRules,
-                classes: modifier.classes,
                 markup: modifier.markup,
+                name: modifier.name,
                 states: Object.keys(modifier.pseudoStates),
                 themes: Object.keys(modifier.themes),
             });
-        })}
+        }).join('')}
         ${Object.keys(component.elements).map(elementName => {
             const element = component.elements[elementName];
 
             const e = ClassDetails({
                 atRules: element.atRules,
-                classes: element.classes,
                 markup: element.markup,
+                name: element.name,
                 states: Object.keys(element.pseudoStates),
                 themes: Object.keys(element.themes),
             });
 
             const m = Object.keys(element.modifiers).map(modifierName => {
-                const modifier = component.modifiers[modifierName];
+                const modifier = element.modifiers[modifierName];
 
                 return ClassDetails({
                     atRules: modifier.atRules,
-                    classes: modifier.classes,
                     markup: modifier.markup,
+                    name: modifier.name,
                     states: Object.keys(modifier.pseudoStates),
                     themes: Object.keys(modifier.themes),
                 });
@@ -88,7 +94,7 @@ module.exports = function({ component, exampleMarkup }) {
                 ${e}
                 ${m}
             `;
-        })}
+        }).join('')}
         ${Contributing()}
     `;
 };

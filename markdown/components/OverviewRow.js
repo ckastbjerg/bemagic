@@ -1,20 +1,17 @@
+const oneLine = require('common-tags/lib/oneLine');
+
 const utils = require('../utils');
 const constants = require('../constants');
 
-module.exports = ({
-    tagName,
-    classes,
-    states = [],
-    type,
-}) => {
-    if (typeof classes !== 'string') {
-        throw new Error('Parameter `classes` must be a string');
+module.exports = ({ tagName, name, states = [], type }) => {
+    if (typeof name !== 'string') {
+        throw new Error('Parameter `name` must be a string');
     }
 
-    return `
-        | **[\`${classes}\`](#${classes.replace(/ /g, '')})**
+    return oneLine`
+        | **[\`${name}\`](#${name})**
         | [${type}](${constants.CONVENTIONS_PATH}#${type}s)
         | ${states.length > 0 ? utils.listString({ list: states }) : 'None'}
-        | ${tagName || 'N/A'}
-    `;
+        | ${tagName || 'N/A'} |
+    ` + '\n';
 };

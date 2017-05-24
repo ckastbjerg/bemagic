@@ -10,7 +10,7 @@ module.exports = component => {
 
     markdown += OverviewRow({
         tag: component.tag,
-        classes: component.classes,
+        name: component.name,
         states: component.states,
         type: 'component',
     });
@@ -19,7 +19,7 @@ module.exports = component => {
         const modifier = component.modifiers[key];
 
         markdown += OverviewRow({
-            classes: modifier.classes,
+            name: modifier.name,
             tag: component.tag,
             states: modifier.states,
             type: 'modifier',
@@ -30,7 +30,7 @@ module.exports = component => {
         const element = component.elements[key];
 
         markdown += OverviewRow({
-            classes: element.classes,
+            name: element.name,
             tag: element.tag,
             states: element.states,
             type: 'element',
@@ -40,7 +40,7 @@ module.exports = component => {
             const modifier = element.modifiers[key];
 
             markdown += OverviewRow({
-                classes: modifier.classes,
+                name: modifier.name,
                 tag: element.tag,
                 states: modifier.states,
                 type: 'modifier',

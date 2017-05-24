@@ -10,5 +10,5 @@ const config = Object.assign(defaultConfig, customConfig);
 // css
 var css = fs.readFileSync('../dist/index.css', 'utf-8');
 parser(config, css).then(function(data) {
-    console.log(util.inspect(data   , {showHidden: false, depth: null}));
+    console.log(util.inspect(data, {showHidden: false, depth: null}));
 });

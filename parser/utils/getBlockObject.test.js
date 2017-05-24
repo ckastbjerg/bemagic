@@ -13,11 +13,11 @@ test('it has the expected shape', () => {
         modifiers: {},
         name: 'block',
         classes: 'prefix-block',
-        markup: '<div class="prefix-block">…</div>',
+        markup: null,
         customMarkup: null,
         pseudoStates: {},
         states: {},
-        tagName: 'div',
+        tagName: null,
         themes: {},
     });
 });
@@ -35,11 +35,11 @@ test('it works with custom markup', () => {
         modifiers: {},
         name: 'block',
         classes: 'prefix-block',
-        markup: '<div class="prefix-block">…</div>',
+        markup: null,
         customMarkup: '<h1 class="prefix-block">Custom markup</h1>',
         pseudoStates: {},
         states: {},
-        tagName: 'div',
+        tagName: null,
         themes: {},
     });
 });

@@ -10,9 +10,11 @@ module.exports = function({
         throw new Error('Missing required argument: blockName');
     }
 
-    const block = elementName ? `${blockName}__${elementName}` : blockName;
-    const modifier = modifierName ? ` ${block}--${modifierName}` : '';
+    const config = global.config || {};
+    const prefix = config.namespace ? `${config.namespace}-` : '';
+    const base = elementName ? `${blockName}__${elementName}` : blockName;
+    const modifier = modifierName ? ` ${prefix}${base}--${modifierName}` : '';
     const state = stateName ? ` ${stateName}` : '';
 
-    return `${block}${modifier}${state}`;
+    return `${prefix}${base}${modifier}${state}`;
 };

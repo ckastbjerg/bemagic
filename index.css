@@ -36,6 +36,7 @@
 .scafolding,
 .bemagic-header,
 .bemagic-page__heading,
+.bemagic-page__title,
 .bemagic-menu {
   -webkit-font-smoothing: antialiased;
   color: #888;
@@ -88,6 +89,13 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
+}
+.bemagic-page__title {
+  background-color: #888;
+  color: white;
+  padding: 10px;
+  border-top: 1px solid #e5e5e5;
+  padding: 5px 10px;
 }
 .bemagic-page__section {
   padding: 12px;

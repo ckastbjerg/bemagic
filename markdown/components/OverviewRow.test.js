@@ -8,7 +8,7 @@ test('it throws', () => {
 test('it works', () => {
     expect(OverviewRow({
         tagName: 'div',
-        classes: 'block',
+        name: 'block',
         states: ['is-active', 'is-dimmed'],
         type: 'component',
     })).toMatchSnapshot();

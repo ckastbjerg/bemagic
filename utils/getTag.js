@@ -1,7 +1,9 @@
 const TAGS = {
     button: 'button',
-    input: 'input',
+    textfield: 'input',
     select: 'select',
+    checkbox: 'input',
+    radio: 'input',
     option: 'option',
     a: 'a',
     link: 'a',
@@ -11,25 +13,11 @@ const TAGS = {
     paragraph: 'p',
 };
 
-module.exports = function({
-    atRules = {},
-    blockName = null,
-}) {
-    if (!blockName) {
-        throw(new Error('Missing argument: blockName'));
+module.exports = function(BEMObject) {
+    if (!BEMObject.name) {
+        throw(new Error('Missing property on BEMObject: name'));
     }
 
-    let tag = 'div';
-
-    if (atRules['tag']) {
-        tag = atRules['tag'];
-    } else if (TAGS[blockName]) {
-        tag = TAGS[blockName];
-    }
-
-    if (tag === 'a') {
-        tag += ' href="#"';
-    }
-
-    return tag;
+    const tag = BEMObject.atRules ? BEMObject.atRules.tag : null;
+    return tag || TAGS[BEMObject.name] || 'div';
 };

@@ -1,9 +1,7 @@
 exports[`test it returns the expected markup 1`] = `
 "
-        <div class=\"bemagic-page__section js-page-section null-background\" data-class=\"block\">
-            <div   class=\"block\">
-                The quick brown fox jumps over the lazy dog
-            </div>
+        <div class=\"bemagic-page__section js-page-section background\" data-class=\"block\">
+            <div class=\"block\">The quick brown fox jumps over the lazy dog</div>
             
             
                     <div    class=\"block pseudo-hover\">
@@ -21,10 +19,8 @@ exports[`test it returns the expected markup 1`] = `
 
 exports[`test it works for components without states 1`] = `
 "
-        <div class=\"bemagic-page__section js-page-section null-background\" data-class=\"block\">
-            <div   class=\"block\">
-                The quick brown fox jumps over the lazy dog
-            </div>
+        <div class=\"bemagic-page__section js-page-section background\" data-class=\"block\">
+            <div class=\"block\">The quick brown fox jumps over the lazy dog</div>
             
             
             

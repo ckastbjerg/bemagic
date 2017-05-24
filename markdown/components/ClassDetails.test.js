@@ -12,7 +12,7 @@ test('it works', () => {
             intro: 'Some intro',
             tag: 'span',
         },
-        classes: 'block',
+        name: 'block',
         markup: '<div class="block">...</div>',
         states: ['hover', 'active', 'disabled'],
         themes: ['inverse', 'secondary'],

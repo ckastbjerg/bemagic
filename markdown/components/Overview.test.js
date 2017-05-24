@@ -8,17 +8,17 @@ test('it throws', () => {
 test('it works', () => {
     expect(Overview({
         tag: 'div',
-        classes: 'block',
+        name: 'block',
         states: ['is-dimmed'],
         elements: {
             element: {
                 tag: 'div',
-                classes: 'block__element',
+                name: 'element',
                 states: ['is-dimmed'],
                 modifiers: {
                     modifier: {
                         tag: 'div',
-                        classes: 'block__element--modifier',
+                        name: 'modifier',
                         states: ['is-something'],
                     },
                 },
@@ -27,7 +27,7 @@ test('it works', () => {
         modifiers: {
             modifier: {
                 tag: 'div',
-                classes: 'block__element--modifier',
+                name: 'modifier',
                 states: ['is-something'],
             },
         },

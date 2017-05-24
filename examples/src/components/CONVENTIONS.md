@@ -6,7 +6,6 @@ It relies on _structured class names_ and _meaningful hyphens and underscores_
 the current limits of applying CSS to the DOM (i.e., the lack of style
 encapsulation), and to better communicate the relationships between classes.
 
-
 **Table of contents**
 * [Naming syntax](#naming-syntax)
 * [The `ep` namespace](#namespace)
@@ -14,7 +13,7 @@ encapsulation), and to better communicate the relationships between classes.
 * [Modifiers](#modifiers)
 * [Descendants](#descendants)
 * [States](#states)
-* [Theming](#theming)
+* [Cascades](#cascades)
 
 <a name="naming-syntax"></a>
 ### Naming syntax
@@ -26,7 +25,7 @@ Syntax: `[<namespace>-]<component-name>[__descendant-name][--modifier-name]`
 This has several benefits when reading and writing HTML and CSS:
 
 * It helps to distinguish between the classes for the root of the component,
-  descendent elements, and modifications.
+descendent elements, and modifications.
 * It keeps the specificity of selectors low.
 * It helps to decouple presentation semantics from document semantics.
 
@@ -89,10 +88,10 @@ separated from the component name by two underscores.
 
 ```html
 <article class="ep-menu">
-  <div class="ep-menu__item">
-    <div class="ep-menu__link">…</div>
-    …
-  </div>
+<div class="ep-menu__item">
+<div class="ep-menu__link">…</div>
+…
+</div>
 </article>
 ```
 
@@ -127,14 +126,14 @@ are scoped to the component).
 <button class="ep-button is-loading"></button>
 ```
 
-<a name="theming"></a>
-### Theming
+<a name="cascades"></a>
+### Cascades
 
 **Example project components should never be styled from within other components**
 (also known as contextual styling). However, there are situations where it makes
 sence to have a Component modify its appearance based on the context in which it
-appears. In other words, the component knows about the theme it appears in
-whereas a theme has no idea which components it contains.
+appears. A common example of this is theming, In this case, the component should know
+about the theme in which it appears but the theme should not know about the component.
 
 ```css
 .ep-cascading-theme-inverse .ep-button { /* … */ }
@@ -142,7 +141,7 @@ whereas a theme has no idea which components it contains.
 
 ```html
 <div class="ep-cascading-theme-inverse">
-  <div class="ep-button">…</div>
+<div class="ep-button">…</div>
 </div>
 ```
 

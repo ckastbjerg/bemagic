@@ -9,7 +9,7 @@ exports[`test it works 1`] = `
         The component will react to \`hover\`, \`active\` and \`disabled\`. states
         ###### Specifications
 
-        ,,- **Tag:** span
+        - **Tag:** span
         ----------
     "
 `;

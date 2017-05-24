@@ -6,7 +6,6 @@ module.exports = elements => {
     return `
         | Name | Description |
         |:-----|:-----|
-
         ${Object.keys(elements).map(key => {
             const element = elements[key];
 
@@ -16,10 +15,7 @@ module.exports = elements => {
                 throw new Error('Each element must have an `atRules` property set');
             }
 
-            return `
-                | **\`${element.name}\`**
-                | ${element.atRules['description'] || 'N/A'} |
-            `;
-        })}
+            return `| **\`${element.name}\`** | ${element.atRules['description'] || 'N/A'} |\n`;
+        }).join('')}
     `;
 };

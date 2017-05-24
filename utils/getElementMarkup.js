@@ -1,24 +1,39 @@
 'use strict';
 
 const getElementClass = require('./getElementClass');
+const getAttributes = require('./getAttributes');
 
 module.exports = function({
-    attributes = null,
+    atRules = {},
     blockName = null,
     children = null,
     elementName = null,
     modifierName = null,
     stateName = null,
-    tagName = null,
+    tagName = 'div',
 }) {
     if (!blockName) {
         throw new Error('Missing required argument: blockName');
     }
 
-    const classes = getElementClass({ blockName, elementName, modifierName, stateName });
-    const attrs = attributes ? ` ${attributes}` : '';
-    const tag = tagName || 'div';
-    const innerHtml = children || '…';
+    const attributes = getAttributes(atRules);
+    const classes = getElementClass({
+        blockName,
+        elementName,
+        modifierName,
+        stateName,
+    });
 
-    return `<${tag}${attrs} class="${classes}">${innerHtml}</${tag}>`;
+    let innerHTML = '';
+    if (children) {
+        innerHTML = children;
+    } else if (atRules.container || atRules.text === '' || tagName === 'input') {
+        innerHTML = '';
+    } else {
+        innerHTML = `${blockName}${elementName
+        ? ` ${elementName}` : ''}${modifierName ? ` ${modifierName}`
+        : ''}${stateName ? ` ${stateName}` : ''}`;
+    }
+
+    return `<${tagName}${attributes} class="${classes}">${innerHTML}</${tagName}>`;
 };

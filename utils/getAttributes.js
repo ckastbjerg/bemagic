@@ -11,9 +11,10 @@ module.exports = function(atRules) {
 
     Object.keys(atRules).forEach(function(rule) {
         if (htmlAttributes[rule]) {
-            attributes += ` ${rule}="${atRules[rule]}"`;
+            const attribute = `${rule}="${atRules[rule]}"`;
+            attributes += ` ${attribute}`;
         }
     });
 
-    return attributes.trim();
+    return attributes;
 };
