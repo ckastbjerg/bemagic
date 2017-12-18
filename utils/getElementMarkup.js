@@ -29,10 +29,13 @@ module.exports = function({
         innerHTML = children;
     } else if (atRules.container || atRules.text === '' || tagName === 'input') {
         innerHTML = '';
+    } else if (!elementName && !modifierName && !stateName) {
+        innerHTML = `Default ${blockName}`;
     } else {
-        innerHTML = `${blockName}${elementName
-        ? ` ${elementName}` : ''}${modifierName ? ` ${modifierName}`
-        : ''}${stateName ? ` ${stateName}` : ''}`;
+        const element = elementName ? `${elementName} ` : '';
+        const modifier = modifierName ? `${modifierName} ` : '';
+        const state = stateName ? `${stateName} ` : '';
+        innerHTML = `${element}${modifier}${state}${blockName}`;
     }
 
     return `<${tagName}${attributes} class="${classes}">${innerHTML}</${tagName}>`;

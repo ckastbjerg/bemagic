@@ -16,7 +16,6 @@ test('it returns expected shape for block selector', () => {
     expect(getAtRules(text)).toEqual({
         description: 'Description of a `block`',
         intro: 'intro for the `block` component...',
-        required: true,
         tag: 'input',
     });
 });

@@ -10,7 +10,7 @@ module.exports = text => {
         let prop = line.split(/:/)[0].replace(/:/, '');
         let val = line.split(/:/)[1];
 
-        if (prop && val) {
+        if (prop && !prop.match('required') && val) {
             prop = prop.replace(',', '').trim();
             val = val.replace(',', '').trim();
             val = val === 'true' ? true : val;
