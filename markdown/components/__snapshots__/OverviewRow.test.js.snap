@@ -1,4 +1,6 @@
-exports[`test it works 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it works 1`] = `
 "| **[\`block\`](#block)** | [component](../CONVENTIONS.md#components) | \`is-active\` and \`is-dimmed\`. | div |
 "
 `;

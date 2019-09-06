@@ -1,4 +1,6 @@
-exports[`test it works 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it works 1`] = `
 "
         
         <a name=modifier></a>
@@ -10,7 +12,7 @@ exports[`test it works 1`] = `
         .
 
         \`\`\`html
-        <div class=\"block block--modifier\">…</div>
+        <div class=\\"block block--modifier\\">…</div>
         \`\`\`
 
         #####All component \`modifier\`

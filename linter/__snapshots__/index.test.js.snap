@@ -1,1 +1,3 @@
-exports[`test it works 1`] = `undefined`;
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it works 1`] = `undefined`;

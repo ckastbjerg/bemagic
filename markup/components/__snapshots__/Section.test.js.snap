@@ -1,15 +1,17 @@
-exports[`test it returns the expected markup 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it returns the expected markup 1`] = `
 "
-        <div class=\"bemagic-page__section js-page-section background\" data-class=\"block\">
-            <div class=\"block\">The quick brown fox jumps over the lazy dog</div>
+        <div class=\\"bemagic-page__section js-page-section background\\" data-class=\\"block\\">
+            <div class=\\"block\\">The quick brown fox jumps over the lazy dog</div>
             
             
-                    <div    class=\"block pseudo-hover\">
+                    <div    class=\\"block pseudo-hover\\">
                         hover
                     </div>
                 
             
-                    <div    class=\"block pseudo-hover is-dimmed\">
+                    <div    class=\\"block pseudo-hover is-dimmed\\">
                         dimmed:hover
                     </div>
                 
@@ -17,10 +19,10 @@ exports[`test it returns the expected markup 1`] = `
     "
 `;
 
-exports[`test it works for components without states 1`] = `
+exports[`it works for components without states 1`] = `
 "
-        <div class=\"bemagic-page__section js-page-section background\" data-class=\"block\">
-            <div class=\"block\">The quick brown fox jumps over the lazy dog</div>
+        <div class=\\"bemagic-page__section js-page-section background\\" data-class=\\"block\\">
+            <div class=\\"block\\">The quick brown fox jumps over the lazy dog</div>
             
             
             

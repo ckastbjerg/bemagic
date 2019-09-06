@@ -1,36 +1,38 @@
-exports[`test returns markup for a complex component 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns markup for a complex component 1`] = `
 "
         <div
-            class=\"bemagic-app js-bemagic-app-template\"
-            data-theme-class=\"theme\"
-            data-background-class=\"background\"
+            class=\\"bemagic-app js-bemagic-app-template\\"
+            data-theme-class=\\"theme\\"
+            data-background-class=\\"background\\"
         >
             
             <style>.block { background: red; }</style>
-            <div class=\"bemagic-app__header bemagic-header js-header\">
-                <div class=\"bemagic-header__logo js-header-item\">BEMagic (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+            <div class=\\"bemagic-app__header bemagic-header js-header\\">
+                <div class=\\"bemagic-header__logo js-header-item\\">BEMagic (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
                 
-    <div class=\"bemagic-header__item bemagic-header__themes js-header-item js-header-themes\">
+    <div class=\\"bemagic-header__item bemagic-header__themes js-header-item js-header-themes\\">
         Themes
         <div
-            class=\"bemagic-header__theme bemagic-theme-button js-theme-toggle is-active\"
-            data-class=\"theme\"
+            class=\\"bemagic-header__theme bemagic-theme-button js-theme-toggle is-active\\"
+            data-class=\\"theme\\"
         ></div>
         
             <div
-                class=\"bemagic-header__theme bemagic-theme-button js-theme-toggle prefix-theme-secondary background\"
-                data-class=\"prefix-theme-secondary\"
+                class=\\"bemagic-header__theme bemagic-theme-button js-theme-toggle prefix-theme-secondary background\\"
+                data-class=\\"prefix-theme-secondary\\"
             ></div>
         
             <div
-                class=\"bemagic-header__theme bemagic-theme-button js-theme-toggle prefix-theme-inverse background\"
-                data-class=\"prefix-theme-inverse\"
+                class=\\"bemagic-header__theme bemagic-theme-button js-theme-toggle prefix-theme-inverse background\\"
+                data-class=\\"prefix-theme-inverse\\"
             ></div>
         
     </div>
 
                 
-    <div class=\"bemagic-header__item bemagic-header__themes js-header-item js-header-backgrounds\">
+    <div class=\\"bemagic-header__item bemagic-header__themes js-header-item js-header-backgrounds\\">
         undefined
     </div>
 
@@ -38,14 +40,14 @@ exports[`test returns markup for a complex component 1`] = `
     
 
             </div>
-            <div class=\"bemagic-app__sidebar\">
+            <div class=\\"bemagic-app__sidebar\\">
                 
-    <div class=\"bemagic-menu js-menu\">
+    <div class=\\"bemagic-menu js-menu\\">
         
     </div>
 
             </div>
-            <div class=\"bemagic-app__pages js-pages theme background\">
+            <div class=\\"bemagic-app__pages js-pages theme background\\">
                 
             </div>
         </div>

@@ -1,9 +1,11 @@
-exports[`test it works 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it works 1`] = `
 "
         <a name=block></a>
         #### \`block\` 
         > Some description...
-        <div class=\"block\">...</div>
+        <div class=\\"block\\">...</div>
         Elements using this class will change appearance when used inside [theme]
         (../CONVENTIONS.md#theming) \`inverse\` or \`secondary\`.
         The component will react to \`hover\`, \`active\` and \`disabled\`. states

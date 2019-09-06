@@ -1,51 +1,53 @@
-exports[`test returns markup for a complex component 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns markup for a complex component 1`] = `
 "
         <div
-            class=\"bemagic-app__page bemagic-page js-page js-block\"
-            data-page=\"block\"
+            class=\\"bemagic-app__page bemagic-page js-page js-block\\"
+            data-page=\\"block\\"
         >
             
-        <div class=\"bemagic-page__heading bemagic-page-heading\">
+        <div class=\\"bemagic-page__heading bemagic-page-heading\\">
             Derived example
-            <div class=\"bemagic-page-heading__explain\">
+            <div class=\\"bemagic-page-heading__explain\\">
                 sophisticated guess regarding the components composition
             </div>
         </div>
         <div
-            class=\"bemagic-page__section js-page-section null-background\"
-            data-class=\"section-block-full\"
+            class=\\"bemagic-page__section js-page-section null-background\\"
+            data-class=\\"section-block-full\\"
         >
             <div>Example markup derived by bemagic</div>
         </div>
     
             
     
-        <div class=\"bemagic-page__heading bemagic-page-heading\">
+        <div class=\\"bemagic-page__heading bemagic-page-heading\\">
             block
-            <div class=\"bemagic-page-heading__explain\">
+            <div class=\\"bemagic-page-heading__explain\\">
                 Styled for themes:
             </div>
             
         <div
-            class=\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\"
-            data-section-ref=\"block\"
-            data-theme=\"inverse\"
+            class=\\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\\"
+            data-section-ref=\\"block\\"
+            data-theme=\\"inverse\\"
         >
         </div>
     
         </div>
     
     
-        <div class=\"bemagic-page__section js-page-section background\" data-class=\"block\">
-            <div class=\"block\">…</div>
+        <div class=\\"bemagic-page__section js-page-section background\\" data-class=\\"block\\">
+            <div class=\\"block\\">…</div>
             
             
-                    <div    class=\"block pseudo-hover\">
+                    <div    class=\\"block pseudo-hover\\">
                         hover
                     </div>
                 
             
-                    <div    class=\"block pseudo-hover is-dimmed\">
+                    <div    class=\\"block pseudo-hover is-dimmed\\">
                         dimmed:hover
                     </div>
                 
@@ -53,35 +55,35 @@ exports[`test returns markup for a complex component 1`] = `
     
 
             
-            <div class=\"bemagic-page__title\">chainable variations</div>
+            <div class=\\"bemagic-page__title\\">chainable variations</div>
             
     
-        <div class=\"bemagic-page__heading bemagic-page-heading\">
+        <div class=\\"bemagic-page__heading bemagic-page-heading\\">
             modifier
-            <div class=\"bemagic-page-heading__explain\">
+            <div class=\\"bemagic-page-heading__explain\\">
                 Styled for themes:
             </div>
             
         <div
-            class=\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\"
-            data-section-ref=\"modifier\"
-            data-theme=\"inverse\"
+            class=\\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\\"
+            data-section-ref=\\"modifier\\"
+            data-theme=\\"inverse\\"
         >
         </div>
     
         </div>
     
     
-        <div class=\"bemagic-page__section js-page-section background\" data-class=\"modifier\">
-            <div class=\"block block--modifier\">…</div>
+        <div class=\\"bemagic-page__section js-page-section background\\" data-class=\\"modifier\\">
+            <div class=\\"block block--modifier\\">…</div>
             
             
-                    <div    class=\"block block--modifier pseudo-hover\">
+                    <div    class=\\"block block--modifier pseudo-hover\\">
                         hover
                     </div>
                 
             
-                    <div    class=\"block block--modifier pseudo-hover is-dimmed\">
+                    <div    class=\\"block block--modifier pseudo-hover is-dimmed\\">
                         dimmed:hover
                     </div>
                 
@@ -92,32 +94,32 @@ exports[`test returns markup for a complex component 1`] = `
             
                     
     
-        <div class=\"bemagic-page__heading bemagic-page-heading\">
+        <div class=\\"bemagic-page__heading bemagic-page-heading\\">
             element
-            <div class=\"bemagic-page-heading__explain\">
+            <div class=\\"bemagic-page-heading__explain\\">
                 Styled for themes:
             </div>
             
         <div
-            class=\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\"
-            data-section-ref=\"element\"
-            data-theme=\"inverse\"
+            class=\\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\\"
+            data-section-ref=\\"element\\"
+            data-theme=\\"inverse\\"
         >
         </div>
     
         </div>
     
     
-        <div class=\"bemagic-page__section js-page-section background\" data-class=\"element\">
-            <div class=\"block__element\">…</div>
+        <div class=\\"bemagic-page__section js-page-section background\\" data-class=\\"element\\">
+            <div class=\\"block__element\\">…</div>
             
             
-                    <div    class=\"block__element pseudo-hover\">
+                    <div    class=\\"block__element pseudo-hover\\">
                         hover
                     </div>
                 
             
-                    <div    class=\"block__element pseudo-hover is-dimmed\">
+                    <div    class=\\"block__element pseudo-hover is-dimmed\\">
                         dimmed:hover
                     </div>
                 
@@ -126,32 +128,32 @@ exports[`test returns markup for a complex component 1`] = `
 
                     
     
-        <div class=\"bemagic-page__heading bemagic-page-heading\">
+        <div class=\\"bemagic-page__heading bemagic-page-heading\\">
             element-modifier
-            <div class=\"bemagic-page-heading__explain\">
+            <div class=\\"bemagic-page-heading__explain\\">
                 Styled for themes:
             </div>
             
         <div
-            class=\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\"
-            data-section-ref=\"element-modifier\"
-            data-theme=\"inverse\"
+            class=\\"bemagic-theme-button bemagic-theme-button--small theme-inverse background js-page-theme\\"
+            data-section-ref=\\"element-modifier\\"
+            data-theme=\\"inverse\\"
         >
         </div>
     
         </div>
     
     
-        <div class=\"bemagic-page__section js-page-section background\" data-class=\"element-modifier\">
-            <div class=\"block__element block__element--element-modifier\">…</div>
+        <div class=\\"bemagic-page__section js-page-section background\\" data-class=\\"element-modifier\\">
+            <div class=\\"block__element block__element--element-modifier\\">…</div>
             
             
-                    <div    class=\"block__element block__element--element-modifier pseudo-hover\">
+                    <div    class=\\"block__element block__element--element-modifier pseudo-hover\\">
                         hover
                     </div>
                 
             
-                    <div    class=\"block__element block__element--element-modifier pseudo-hover is-dimmed\">
+                    <div    class=\\"block__element block__element--element-modifier pseudo-hover is-dimmed\\">
                         dimmed:hover
                     </div>
                 

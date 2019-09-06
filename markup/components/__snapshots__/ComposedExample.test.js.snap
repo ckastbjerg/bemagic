@@ -1,36 +1,38 @@
-exports[`test returns a string of attributes from an object 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns a string of attributes from an object 1`] = `
 "
-        <div class=\"bemagic-page__heading bemagic-page-heading\">
+        <div class=\\"bemagic-page__heading bemagic-page-heading\\">
             Composed example
-            <div class=\"bemagic-page-heading__explain\">
-                extracted from /Users/ck/code/issuu/bemagic/examples/src/components/block/bemagic.html
+            <div class=\\"bemagic-page-heading__explain\\">
+                extracted from /Users/fredericraimond/issuu/bemagic/examples/src/components/block/bemagic.html
             </div>
         </div>
         <div
-            class=\"bemagic-page__section js-page-section \"
-            data-class=\"section-prefix-block-full\"
+            class=\\"bemagic-page__section js-page-section \\"
+            data-class=\\"section-prefix-block-full\\"
         >
-            <div class=\"ep-block\">
+            <div class=\\"ep-block\\">
     Custom markup example...
-    <div class=\"ep-block__element\">some element</div>
-    <div class=\"ep-block__element--modifier\">some modifier</div>
+    <div class=\\"ep-block__element\\">some element</div>
+    <div class=\\"ep-block__element--modifier\\">some modifier</div>
 </div>
 
         </div>
     "
 `;
 
-exports[`test will use derived example if no html file exists 1`] = `
+exports[`will use derived example if no html file exists 1`] = `
 "
-        <div class=\"bemagic-page__heading bemagic-page-heading\">
+        <div class=\\"bemagic-page__heading bemagic-page-heading\\">
             Derived example
-            <div class=\"bemagic-page-heading__explain\">
+            <div class=\\"bemagic-page-heading__explain\\">
                 sophisticated guess regarding the components composition
             </div>
         </div>
         <div
-            class=\"bemagic-page__section js-page-section \"
-            data-class=\"section-prefix-derive-example-full\"
+            class=\\"bemagic-page__section js-page-section \\"
+            data-class=\\"section-prefix-derive-example-full\\"
         >
             <div>A derived example</div>
         </div>

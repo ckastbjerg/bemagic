@@ -1,4 +1,6 @@
-exports[`test it works for complex components 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it works for complex components 1`] = `
 "
         ###### Table of contents
         
@@ -10,7 +12,7 @@ exports[`test it works for complex components 1`] = `
     "
 `;
 
-exports[`test it works for simple components 1`] = `
+exports[`it works for simple components 1`] = `
 "
         ###### Table of contents
         

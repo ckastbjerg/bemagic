@@ -1,9 +1,11 @@
-exports[`test returns a string of attributes from an object 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns a string of attributes from an object 1`] = `
 "
         <div
-            class=\"bemagic-theme-button bemagic-theme-button--small prefix-theme-secondary background js-page-theme\"
-            data-section-ref=\"block\"
-            data-theme=\"secondary\"
+            class=\\"bemagic-theme-button bemagic-theme-button--small prefix-theme-secondary background js-page-theme\\"
+            data-section-ref=\\"block\\"
+            data-theme=\\"secondary\\"
         >
         </div>
     "

@@ -1,20 +1,22 @@
-exports[`test capitalize works 1`] = `"Some sentence"`;
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test description works 1`] = `"Some sentence."`;
+exports[`capitalize works 1`] = `"Some sentence"`;
 
-exports[`test it works 1`] = `"\`inverse\` and \`secondary\`."`;
+exports[`description works 1`] = `"Some sentence."`;
 
-exports[`test it works with custom word 1`] = `"\`inverse\` or \`secondary\`."`;
+exports[`it works 1`] = `"\`inverse\` and \`secondary\`."`;
 
-exports[`test menuItem works 1`] = `"- **[Some sentence](#some-sentence)**"`;
+exports[`it works with custom word 1`] = `"\`inverse\` or \`secondary\`."`;
 
-exports[`test notice works 1`] = `undefined`;
+exports[`menuItem works 1`] = `"- **[Some sentence](#some-sentence)**"`;
 
-exports[`test sectionTitle works 1`] = `
+exports[`notice works 1`] = `undefined`;
+
+exports[`sectionTitle works 1`] = `
 "
         <a name=some title></a>
         #### Some title
     "
 `;
 
-exports[`test title works 1`] = `"## Block \`prefix-block\`"`;
+exports[`title works 1`] = `"## Block \`prefix-block\`"`;

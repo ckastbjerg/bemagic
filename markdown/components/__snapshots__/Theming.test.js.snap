@@ -1,4 +1,6 @@
-exports[`test it works 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it works 1`] = `
 "
         
         <a name=Theming></a>
@@ -9,10 +11,10 @@ exports[`test it works 1`] = `
         Note however, that themes may apply only for parts of the component.
 
         \`\`\`html
-        <div class=\"block prefix-theme\">…</div>
+        <div class=\\"block prefix-theme\\">…</div>
         <!-- or using nesting -->
-        <div class=\"prefix-theme\">
-            <div class=\"block\">…</div>
+        <div class=\\"prefix-theme\\">
+            <div class=\\"block\\">…</div>
         </div>
         \`\`\`
         <sub>See the [Component Overview](#component-overview) for more details.</sub>
