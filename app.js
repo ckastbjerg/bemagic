@@ -33,9 +33,32 @@ function getReworkedCss(filePath) {
     var reworkedCss = rework(css).use(pseudoclasses({
         blacklist: [],
         allCombinations: true }))
-    .toString();
+        .toString();
 
     return reworkedCss;
+}
+
+function build(options, config, callback) {
+    const css = getReworkedCss(options.file);
+
+    parser(css).then(function({ components, themes }) {
+        if (config.strict) {
+            lintComponents(components);
+        }
+
+        if (config.componentsFolder) {
+            markdowner(components);
+        }
+
+        const markup = markupper({ css, components, themes });
+        if (callback) {
+            callback(markup);
+        }
+
+        console.log(`🌈  ${chalk.green('Rebuild complete!')}`);
+    }).catch(err => {
+        console.log('parsing failed', err);
+    });
 }
 
 module.exports.run = function(options) {
@@ -52,31 +75,12 @@ module.exports.run = function(options) {
     const componentsPath = config.componentsFolder;
     const watcher = chokidar.watch([`${componentsPath}/**/*.html`, options.file], {persistent: true});
 
+    build(options, config);
+
     io.on('connection', function (socket) {
-        function build() {
-            const css = getReworkedCss(options.file);
-
-            parser(css).then(function({ components, themes }) {
-                if (config.strict) {
-                    lintComponents(components);
-                }
-
-                if (config.componentsFolder) {
-                    markdowner(components);
-                }
-
-                const markup = markupper({ css, components, themes });
-                socket.emit('data', markup);
-
-                console.log(`🌈  ${chalk.green('Rebuild complete!')}`);
-            }).catch(err => {
-                console.log('parsing failed', err);
-            });
-        }
-
-        build();
+        build(options, config, markup => socket.emit('data', markup));
         watcher.on('change', function() {
-            build();
+            build(options, config, markup => socket.emit('data', markup));
         });
     });
 
